@@ -1,0 +1,504 @@
+/* ==========================================================================
+   NODESITE - DISEÑO ADMINISTRATIVO UNIFICADO CON SOPORTE COMPONENTES GLOBALES
+   ========================================================================== */
+
+/* CONTENEDOR MAESTRO (IDÉNTICO A PINES-ADMIN) */
+.global-admin-layout {
+  --bg-app: #E5E7EB;
+  --bg-panel: #FFFFFF;
+  --bg-row: #FFFFFF;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --border-color: #B8C5D6; 
+  --wp-blue: #1A5C94;
+  --wp-orange: #F9813A;
+  --wp-success: #10B981;
+  --wp-success-bg: #F0FDF4;
+
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-app);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* SISTEMA DE VARIABLES (MODO OSCURO - ACTIVADO DESDE EL HEADER) */
+.global-admin-layout.dark-theme {
+  --bg-app: #0F172A;
+  --bg-panel: #1E293B;
+  --bg-row: #334155;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-color: #475569;
+  --wp-blue: #1A5C94;
+}
+
+/* ESTRUCTURA INTERNA DE TRABAJO */
+.main-workspace {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  height: 100%;
+}
+
+.workspace-scroll-viewport {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: var(--bg-app);
+}
+
+.page-content-padding {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   BARRA SUPERIOR Y ENCABEZADOS AZULES
+   ========================================== */
+.blue-top-bar {
+    background-color: #1A5C94;
+    color: #FFFFFF;
+    padding: 16px 24px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.blue-card-header {
+    background-color: #1A5C94;
+    color: #FFFFFF;
+    padding: 16px 20px;
+    border-radius: 6px 6px 0 0;
+}
+
+.blue-card-header h3, 
+.blue-card-header p, 
+.blue-card-header .material-symbols-outlined {
+    color: #FFFFFF !important;
+}
+
+/* ==========================================
+   CARDS Y GRIDS
+   ========================================== */
+.erp-grid-2-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.mt-24 { margin-top: 24px; }
+
+.erp-card {
+    background: var(--bg-panel);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.header-title-group h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.header-title-group p {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.erp-card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.row-layout {
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.flex-grow { flex-grow: 1; }
+.flex-align-center { display: flex; align-items: center; }
+.gap-2 { gap: 8px; }
+
+/* ==========================================
+   INPUTS Y FORMULARIOS
+   ========================================== */
+.material-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.material-input-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.material-input {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: var(--bg-app);
+    transition: all 0.2s ease;
+}
+
+.material-input:focus {
+    outline: none;
+    border-color: var(--wp-blue);
+}
+
+/* ==========================================
+   ZONA DRAG & DROP
+   ========================================== */
+.drag-drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-app);
+    transition: all 0.3s;
+}
+
+.drag-drop-zone:hover {
+    border-color: var(--wp-blue);
+}
+
+.drag-drop-zone.has-file {
+    border-style: solid;
+    border-color: var(--wp-success);
+    background: var(--wp-success-bg);
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px;
+    cursor: pointer;
+    gap: 12px;
+    text-align: center;
+}
+
+.upload-icon {
+    font-size: 32px;
+    color: var(--text-muted);
+}
+
+.has-file .upload-icon {
+    color: var(--wp-success) !important;
+}
+
+.upload-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.primary-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.has-file .primary-text {
+    color: var(--wp-success) !important;
+    font-weight: 600;
+}
+
+.secondary-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+.erp-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.actions-inline {
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.full-width { width: 100%; }
+
+.btn-erp-primary {
+    background: var(--wp-blue);
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-erp-primary:disabled {
+    background: var(--text-muted);
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-erp-secondary {
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+}
+
+/* ==========================================
+   VISTA PREVIA MAPA
+   ========================================== */
+.map-simulation-container {
+    background: #E5E9EA;
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 0 0 6px 6px;
+}
+
+.map-mockup {
+    height: 180px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.pin-preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.preview-img {
+    width: 38px;
+    height: auto;
+    z-index: 2;
+}
+
+.pin-shadow {
+    width: 18px;
+    height: 5px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+.preview-label {
+    background: var(--bg-panel);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-top: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.preview-info-box {
+    background: var(--bg-panel);
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.info-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.info-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   TABS REDISEÑADAS: RECTÁNGULOS NARANJAS COMPLETOS (ESTILO PINES-ADMIN)
+   ========================================================================== */
+.erp-tabs {
+    display: flex;
+    gap: 16px; /* Separación entre ambos rectángulos */
+    background: var(--bg-panel);
+    padding: 20px 20px 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-item {
+    background: transparent;
+    border: 1px solid #F9813A; /* Borde naranja unificado */
+    border-radius: 6px;       /* Bordes redondeados del rectángulo */
+    padding: 8px 18px;        /* Relleno interno para abarcar icono, texto y número */
+    color: #F9813A;           /* Texto e icono naranja por defecto */
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+}
+
+/* Efecto hover suave */
+.tab-item:hover {
+    background-color: rgba(249, 129, 58, 0.08);
+}
+
+/* PESTAÑA SELECCIONADA / ACTIVA */
+.tab-item.active {
+    background-color: #F9813A; /* Se rellena de naranja */
+    color: #FFFFFF;           /* Todo el contenido pasa a blanco */
+    border-color: #F9813A;
+    box-shadow: 0 2px 4px rgba(249, 129, 58, 0.2);
+}
+
+.tab-label-text strong {
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-left: 2px;
+}
+
+/* Iconos de Material dentro del botón heredarán el color de fuente del estado */
+.tab-item .material-symbols-outlined {
+    font-size: 1.2rem;
+    color: inherit;
+}
+
+/* ==========================================
+   TABLAS TIPO ERP
+   ========================================== */
+.erp-table-container {
+    background: var(--bg-panel);
+}
+
+.erp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.erp-table th {
+    background: var(--bg-app);
+    padding: 12px 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.erp-table td {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+.erp-table tbody tr:hover {
+    background: var(--bg-app);
+}
+
+.td-icon-box {
+    width: 32px;
+    height: 32px;
+    background: var(--bg-app);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+}
+
+.td-icon-box img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.actions-cell {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    padding: 0;
+    color: var(--text-muted);
+}
+
+.icon-btn:hover { background: rgba(0,0,0,0.05); color: var(--text-main); }
+
+/* Utilidades */
+.text-right { text-align: right; }
+.text-muted { color: var(--text-muted); }
+.fw-500 { font-weight: 500; }
+  
+/* ==========================================================================
+   FOOTER COPYRIGHT ALINEADO A LA IZQUIERDA
+   ========================================================================== */
+.wispro-admin-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: transparent;
+}
+
+.footer-left-copyright {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-left-copyright strong {
+  color: var(--text-main);
+  font-weight: 700;
+}

@@ -1,0 +1,20 @@
+<div class="selector-container">
+      <label class="label-titulo">SELECCIONA EL TIPO DE REPORTE</label>
+      
+      <div class="scroll-wrapper">
+        <div class="pines-grid">
+          @for (pin of listaPines; track pin.id) {
+            <div 
+              class="pin-item" 
+              [class.selected]="seleccionadoId === pin.id"
+              (click)="seleccionar(pin)">
+              
+              <div class="icon-circle">
+                <img [src]="pin.iconoUrl" alt="icon">
+              </div>
+              <span class="pin-name">{{ pin.nombre }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>

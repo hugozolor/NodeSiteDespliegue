@@ -1,0 +1,270 @@
+/* ==========================================================================
+   NODESITE HEADER - CONFIGURACIÓN DE TOKENS DE DISEÑO (LIGHT MODE BY DEFAULT)
+   ========================================================================== */
+:root {
+  --bg-surface: #ffffff;
+  --bg-variant: #f8fafc;
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --brand-accent: #232D4F;          /* Azul corporativo oficial */
+  --brand-hover: #0f172a;           /* Color interactivo modo claro */
+  --badge-bg: rgba(35, 45, 79, 0.08);
+  --badge-text: #232D4F;
+}
+
+/* ==========================================================================
+   ESTILOS BASE DE LA CABECERA
+   ========================================================================== */
+.header-admin {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+  z-index: 100;
+}
+
+/* --- LADO IZQUIERDO: BRANDING & CONTROL --- */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.burger-btn {
+  color: var(--text-secondary);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.burger-btn:hover {
+  color: var(--brand-accent);
+  transform: scale(1.05);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-svg {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.project-name {
+  font-weight: 800;
+  color: var(--brand-accent);
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+/* --- CENTRO: RELOJ TÉCNICO --- */
+.header-center {
+  display: flex;
+  align-items: center;
+}
+
+.live-clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: var(--bg-variant);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.clock-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--brand-accent);
+  transition: color 0.3s ease;
+}
+
+.separator {
+  color: var(--border-color);
+  margin: 0 4px;
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+/* --- LADO DERECHO: PERFIL Y TEMAS --- */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-btn {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.theme-btn:hover {
+  color: var(--brand-accent);
+}
+
+.admin-profile-btn {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px !important;
+  border-radius: 8px !important;
+  height: 40px;
+  transition: background-color 0.2s ease !important;
+}
+
+.admin-profile-btn:hover {
+  background-color: var(--bg-variant) !important;
+}
+
+.avatar-container mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: var(--brand-accent);
+  transition: color 0.3s ease;
+}
+
+.arrow-down {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  color: var(--text-secondary);
+}
+
+/* --- MENÚ DESPLEGABLE PREMIUM (MAT-MENU) --- */
+::ng-deep .premium-dropdown-menu {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--bg-surface) !important;
+  min-width: 240px !important;
+}
+
+.dropdown-header {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: default;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.user-email {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 4px 0;
+}
+
+.user-badge {
+  align-self: flex-start;
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.last-access {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  margin: 4px 0 0 0;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 4px 0;
+}
+
+::ng-deep .premium-dropdown-menu .mat-mdc-menu-item {
+  height: 44px !important;
+  display: flex;
+  align-items: center;
+  color: var(--text-primary) !important;
+  font-size: 0.88rem !important;
+}
+
+::ng-deep .premium-dropdown-menu .mat-mdc-menu-item mat-icon {
+  color: var(--text-secondary) !important;
+  margin-right: 8px !important;
+}
+
+.logout-item {
+  color: #ef4444 !important; /* Rojo sutil y destructivo estandarizado */
+}
+
+.logout-item mat-icon {
+  color: #ef4444 !important;
+}
+
+/* ==========================================================================
+   INYECCIÓN ESTRATÉGICA PARA EL MODO OSCURO (ALTO CONTRASTE DE TEXTOS)
+   ========================================================================== */
+::ng-deep .dark-theme {
+  /* Mutación total de las variables a la paleta Dark SaaS */
+  --bg-surface: #111827;            /* Gris Slate ultra oscuro */
+  --bg-variant: #1f2937;            /* Gris medio para elevar tarjetas/reloj */
+  --border-color: #374151;          /* Bordes de alta visibilidad oscura */
+  --text-primary: #ffffff;          /* TEXTO TOTALMENTE BLANCO [Contraste Perfecto] */
+  --text-secondary: #94a3b8;        /* Gris claro para lecturas secundarias */
+  
+  /* Reajuste de acentos para que no queden oscuros sobre fondo oscuro */
+  --brand-accent: #f8fafc;          /* Cambia a blanco/off-white para máxima luz */
+  --brand-hover: #38bdf8;           /* Celeste tecnológico premium para los hovers */
+  
+  /* Badge institucional adaptado a oscuridad */
+  --badge-bg: rgba(248, 250, 252, 0.1);
+  --badge-text: #f8fafc;
+
+  /* Forzar refresco visual en propiedades nativas de Material */
+  .project-name {
+    color: #ffffff;                 /* Nombre de la app en blanco puro */
+  }
+  
+  .burger-btn:hover, .theme-btn:hover {
+    color: var(--brand-hover);     /* Al pasar el mouse brilla en celeste moderno */
+  }
+
+  .live-clock {
+    background-color: var(--bg-variant);
+    border-color: var(--border-color);
+  }
+
+  /* Dropdown del Administrador en modo oscuro */
+  .premium-dropdown-menu {
+    background-color: var(--bg-surface) !important;
+    border-color: var(--border-color) !important;
+  }
+}

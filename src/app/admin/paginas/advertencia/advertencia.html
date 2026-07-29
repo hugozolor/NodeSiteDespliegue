@@ -1,0 +1,95 @@
+<div class="admin-container">
+  <nav class="admin-nav">
+    <div class="project-brand">
+      <span class="project-name">NODEsite <small>| Moderación de Usuarios</small></span>
+    </div>
+    <button class="btn-back" routerLink="/admin/tablero-control">Volver al Panel</button>
+  </nav>
+
+  <section class="search-section">
+    <div class="search-box">
+      <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="buscarUsuario()" placeholder="Escriba el nombre de usuario (username)...">
+      <button class="btn-search" (click)="buscarUsuario()">Buscar</button>
+    </div>
+  </section>
+
+  @if (usuarioEncontrado) {
+    <div class="user-results">
+      <div class="user-header">
+        <div class="user-data">
+          <h3>@{{ usuarioEncontrado.username }}</h3>
+          <p>{{ usuarioEncontrado.nombreReal }} | {{ usuarioEncontrado.email }}</p>
+        </div>
+        <button class="btn-report-main" (click)="abrirReporte()">Generar Reporte</button>
+      </div>
+
+      <div class="activity-grid">
+        <div class="activity-column">
+          <h4 class="column-title">Pines Publicados</h4>
+          @for (pin of usuarioEncontrado.pines; track pin.id) {
+            <div class="post-row">
+              <div class="post-info">
+                <span class="tag-flat">{{ pin.tipo }}</span>
+                <p>{{ pin.mensaje }}</p>
+              </div>
+              <button class="btn-action-report" (click)="abrirReporte()">Reportar</button>
+            </div>
+          }
+        </div>
+
+        <div class="activity-column">
+          <h4 class="column-title">Historial de Reseñas</h4>
+          @for (res of usuarioEncontrado.resenas; track res.id) {
+            <div class="post-row">
+              <div class="post-info">
+                <strong>{{ res.barrio }}</strong>
+                <p>{{ res.comentario }}</p>
+              </div>
+              <button class="btn-action-report" (click)="abrirReporte()">Reportar</button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (mostrarModalReporte) {
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <h3>Notificar a @{{ usuarioEncontrado?.username }}</h3>
+        
+        <div class="form-control">
+          <label>Nivel de Gravedad</label>
+          <select [(ngModel)]="sancion.tipo">
+            <option value="INFO">INFO</option>
+            <option value="SUCCESS">SUCCESS</option>
+            <option value="ALERT">ALERT</option>
+            <option value="WARNING">WARNING (Baneo)</option>
+          </select>
+        </div>
+
+        <div class="form-control">
+          <label>Título</label>
+          <input type="text" [(ngModel)]="sancion.titulo" placeholder="Ej: Incumplimiento de normas">
+        </div>
+
+        <div class="form-control">
+          <label>Mensaje Veredicto</label>
+          <textarea [(ngModel)]="sancion.mensaje" rows="4"></textarea>
+        </div>
+
+        @if (sancion.tipo === 'WARNING') {
+          <div class="danger-zone">
+            <input type="checkbox" [(ngModel)]="sancion.quitarBeneficios" id="banCheck">
+            <label for="banCheck">Inhabilitar cuenta permanentemente</label>
+          </div>
+        }
+
+        <div class="modal-footer">
+          <button class="btn-cancel-flat" (click)="cerrarReporte()">Cancelar</button>
+          <button class="btn-confirm-flat" (click)="enviarSancion()">Enviar Notificación</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

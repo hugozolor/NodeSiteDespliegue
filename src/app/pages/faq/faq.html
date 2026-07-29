@@ -1,0 +1,17 @@
+<div class="vista-faq-contenedor">
+  <div class="contenedor-faq">
+    <h1>{{ titulo }}</h1>
+
+    <div class="lista-acordeon">
+      <div *ngFor="let item of listaFaq" class="tarjeta-faq">
+        <h3>
+          <span class="icono-pregunta">?</span> 
+          {{ item.pregunta }}
+        </h3>
+        <p>{{ item.respuesta }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <app-footer></app-footer>
+</div>

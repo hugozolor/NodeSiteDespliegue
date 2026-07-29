@@ -1,0 +1,107 @@
+<div class="gestion-mapa-container">
+  <aside class="map-sidebar">
+    <div class="sidebar-content">
+      
+      <div class="sidebar-nav">
+        <button class="btn-back" routerLink="/admin/tablero-control">
+          ← Volver al Panel
+        </button>
+      </div>
+
+      <header class="sidebar-header">
+        <h2>Gestión de Obras</h2>
+        <p>Publique avisos oficiales en el mapa de la ciudad.</p>
+      </header>
+
+      <form (ngSubmit)="guardarObra()" class="obra-form">
+        <div class="form-section">
+          <label>Título Oficial</label>
+          <input type="text" [(ngModel)]="nuevoPin.titulo" name="titulo" placeholder="Ej: Bacheo Av. San Martín" required>
+        </div>
+
+        <div class="form-section">
+          <label>Descripción Técnica</label>
+          <textarea [(ngModel)]="nuevoPin.descripcion" name="comentario" rows="3" placeholder="Detalles visibles para el ciudadano..." required></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-section">
+            <label>Categoría</label>
+            <select [(ngModel)]="nuevoPin.tipoObra" name="tipo">
+              <option *ngFor="let tipo of tiposDisponibles" [value]="tipo.nombre">
+                {{ tipo.nombre }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="form-section">
+            <label>Estado</label>
+            <select [(ngModel)]="nuevoPin.estado" name="estado">
+              <option value="en-progreso">En Progreso</option>
+              <option value="finalizada">Finalizada</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label>Evidencia Fotográfica (Máx 3)</label>
+          <div class="file-upload-box">
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" id="file-input" multiple>
+            <label for="file-input" class="upload-label">
+              
+              <div *ngIf="nuevoPin.imagenes.length === 0" class="upload-placeholder">
+                <svg class="icon-2d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <span>Subir fotos</span>
+              </div>
+
+              <div *ngIf="nuevoPin.imagenes.length > 0" class="upload-success">
+                <svg class="icon-2d success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span class="success-text">{{ nuevoPin.imagenes.length }} foto(s) lista(s)</span>
+              </div>
+
+            </label>
+          </div>
+          
+          <div *ngIf="nuevoPin.imagenes.length > 0" class="preview-grid">
+             <img *ngFor="let img of nuevoPin.imagenes" [src]="img" class="preview-mini">
+          </div>
+        </div>
+
+        <div class="form-section expiration-box">
+          <label>Visibilidad del Aviso</label>
+          <div class="time-controls">
+            <input type="number" [(ngModel)]="cantidadTiempo" name="cant" min="1">
+            <select [(ngModel)]="unidadTiempo" name="unidad">
+              <option value="horas">Horas</option>
+              <option value="dias">Días</option>
+              <option value="semanas">Semanas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="status-indicator" [class.ready]="nuevoPin.latitud !== 0">
+          <span class="dot"></span>
+          {{ nuevoPin.latitud !== 0 ? 'Ubicación fijada' : 'Haga clic en el mapa para ubicar' }}
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn-primary" [disabled]="nuevoPin.latitud === 0 || !nuevoPin.titulo">
+            {{ modoEdicion ? 'Guardar Cambios' : 'Publicar Pin' }}
+          </button>
+          
+          <button *ngIf="modoEdicion" type="button" class="btn-secondary" (click)="cancelarEdicion()">
+            Cancelar Edición
+          </button>
+        </div>
+      </form>
+    </div>
+  </aside>
+
+  <div id="map-admin" class="map-view"></div>
+</div>

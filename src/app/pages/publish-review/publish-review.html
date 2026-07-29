@@ -1,0 +1,119 @@
+<app-header></app-header>
+
+<main class="publish-page">
+  <div class="content-container">
+    @if (session.isGuest()) {
+      <app-guest-block></app-guest-block>
+    } 
+
+    <section class="search-section">
+      <div class="search-bar">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Buscar mi barrio..." 
+              [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event); letraSeleccionada.set(null)">
+      </div>
+
+      <div class="alphabet-scroll">
+        @for (item of filtrosAbecedario; track item) {
+          <button [class.active]="letraSeleccionada() === item" (click)="filtrarPorLetra(item)">
+            {{ item }}
+          </button>
+        }
+      </div>
+    </section>
+
+    @if (!barrioSeleccionado() && (busqueda() || letraSeleccionada())) {
+      <div class="search-results anim-fade-in">
+        @for (b of barriosFiltrados(); track b.id) {
+          <button class="result-item" (click)="seleccionarBarrio(b)">
+            <span class="barrio-name">{{ b.nombre }}</span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        }
+      </div>
+    }
+
+    <hr class="divider">
+
+    @if (!barrioSeleccionado() && !busqueda() && !letraSeleccionada()) {
+      <section class="ranking-section anim-fade-in">
+        <div class="ranking-header">
+          <h2 class="title">Clasificación y Rendimiento de Barrios</h2>
+        </div>
+
+        <div class="ranking-container">
+          @for (item of top50Ranking(); track item.id) {
+            <div class="rank-card" 
+                 [class.gold]="item.position === 1" 
+                 [class.silver]="item.position === 2" 
+                 [class.bronze]="item.position === 3">
+              
+              <div class="rank-position">
+                <span>#{{ item.position }}</span>
+              </div>
+
+              <div class="rank-info">
+                <span class="rank-name">{{ item.nombre }}</span>
+                <span class="rank-reviews">({{ item.reviewsCount }} reseñas)</span>
+              </div>
+
+              <div class="rank-score">
+                <svg class="star-mini" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <strong>{{ item.score.toFixed(1) }}</strong>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    @if (barrioSeleccionado()) {
+      <div class="rating-card anim-fade-in">
+        <div class="card-header">
+          <h3 class="location-title">
+            <svg class="icon-pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            {{ barrioSeleccionado()?.nombre }}
+          </h3>
+          <button class="btn-change" (click)="barrioSeleccionado.set(null)">Cambiar</button>
+        </div>
+
+        <div class="stars-picker">
+          <p class="label-text">Califica tu experiencia en este barrio</p>
+          <div class="stars-row">
+            @for (n of [1,2,3,4,5]; track n) {
+              <svg class="star-icon" [class.active]="n <= estrellas()" (click)="estrellas.set(n)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            }
+          </div>
+          <span class="rating-text" *ngIf="estrellas() > 0">{{ estrellas() }} de 5</span>
+        </div>
+
+        @if (estrellas() > 0) {
+          <div class="comment-box anim-fade-in">
+            <textarea placeholder="Cuéntanos más detalles sobre seguridad, limpieza, iluminación o problemas en el barrio..." 
+                      [ngModel]="comentario()" 
+                      (ngModelChange)="comentario.set($event)" 
+                      maxlength="300"></textarea>
+            <button class="btn-publish" [disabled]="comentario().length < 5" (click)="mostrarModal.set(true)">
+              PUBLICAR RESEÑA
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</main>
+
+@if (mostrarModal()) {
+  <app-confirm-modal 
+    [title]="'¿Publicar reseña?'"
+    [barrio]="barrioSeleccionado()?.nombre ?? ''" 
+    (onConfirm)="confirmarPublicacionFinal()"
+    (onCancel)="mostrarModal.set(false)">
+  </app-confirm-modal>
+}

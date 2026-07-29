@@ -1,0 +1,87 @@
+    .bottom-nav {
+    display: none; /* Oculto en PC */
+    }
+
+    @media (max-width: 600px) {
+    .bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 75px;
+        background-color: #232D4F; /* AZUL OSCURO INSTITUCIONAL */
+        justify-content: space-around;
+        align-items: center;
+        z-index: 2000;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        border-radius: 20px 20px 0 0; /* Curva elegante arriba */
+    }
+
+    .nav-item {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.6); /* Color inactivo (blanco transparente) */
+        font-size: 0.7rem;
+        font-weight: 500;
+        gap: 4px;
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+
+    /* --- ESTADO ACTIVO (Cuando estás en la página) --- */
+    .active-link {
+        color: #ffffff !important; /* Blanco puro */
+        transform: translateY(-2px);
+    }
+
+    .active-link mat-icon {
+        font-variation-settings: 'wght' 600, 'FILL' 1; /* Icono se rellena y engrosa */
+    }
+
+    .nav-item mat-icon {
+        font-size: 26px;
+        font-variation-settings: 'wght' 300;
+    }
+
+    /* --- BOTÓN CENTRAL (MAPA CIRCULAR) --- */
+    .action-button {
+        overflow: visible;
+        margin-top: -35px; /* Eleva el círculo */
+    }
+
+    .icon-circle {
+        background: linear-gradient(135deg, #005fa3, #232D4F);
+        color: white;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        border: 5px solid #2e448f; /* Crea el efecto de recorte en la barra */
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .action-button:hover .icon-circle,
+    .active-link .icon-circle {
+        transform: scale(1.1);
+        background: #ffffff;
+        color: #232D4F;
+    }
+
+    .map-label {
+        margin-top: 5px;
+        font-weight: 700;
+        color: white;
+    }
+
+    /* Icono de DNI / Cuenta específico */
+    .material-symbols-outlined {
+        font-variation-settings: 'wght' 300, 'opsz' 24;
+    }
+    }

@@ -1,0 +1,80 @@
+.selector-container {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .label-titulo {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 15px;
+      display: block;
+      letter-spacing: 0.5px;
+    }
+    .scroll-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 10px; /* Espacio para scrollbar */
+    }
+    /* Ocultar scrollbar fea pero permitir scroll */
+    .scroll-wrapper::-webkit-scrollbar { height: 4px; }
+    .scroll-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+    .pines-grid {
+      display: flex;
+      gap: 15px;
+      padding: 5px; /* Para que la sombra no se corte */
+      min-width: min-content; /* Asegura que el ancho se ajuste al contenido */
+    }
+
+    .pin-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      min-width: 80px; /* Ancho fijo mínimo */
+    }
+
+    .pin-item:active { transform: scale(0.95); }
+
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .icon-circle img {
+      width: 30px; /* Tamaño controlado del icono */
+      height: 30px;
+      object-fit: contain;
+    }
+
+    .pin-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: center;
+      max-width: 80px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ESTADO SELECCIONADO */
+    .pin-item.selected .icon-circle {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      transform: scale(1.1);
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+    }
+    .pin-item.selected .pin-name {
+      color: #0284c7;
+      font-weight: 800;
+    }

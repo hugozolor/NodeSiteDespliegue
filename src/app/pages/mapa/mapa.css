@@ -1,0 +1,173 @@
+/* ==========================================================================
+   1. CONTENEDOR PRINCIPAL Y ESTRUCTURA DEL MAPA
+   ========================================================================== */
+.map-viewport {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 60px); 
+  overflow: hidden;
+  background: #f1f5f9; 
+}
+
+#map-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   2. PINES DINÁMICOS
+   ========================================================================== */
+.custom-pin-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 8px rgba(15, 23, 42, 0.25));
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.custom-pin-wrapper svg { width: 100%; height: 100%; display: block; }
+.custom-pin-wrapper:hover { transform: scale(1.18) translateY(-2px); z-index: 9999 !important; }
+
+.custom-temp-pin {
+  display: flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; cursor: pointer;
+  filter: drop-shadow(0px 6px 12px rgba(0, 95, 163, 0.4));
+  z-index: 1001;
+}
+.custom-temp-pin svg { width: 100%; height: 100%; display: block; }
+
+.anim-bounce { animation: pinBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; transform-origin: bottom center; }
+@keyframes pinBounce {
+  0% { transform: translateY(-40px) scale(0.4); opacity: 0; }
+  60% { transform: translateY(5px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   3. BOTÓN FLOTANTE (FAB)
+   ========================================================================== */
+.fab-filter {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: pointer; z-index: 10;
+  transition: all 0.25s ease;
+}
+
+.fab-filter:hover {
+  background: #f8fafc; transform: translateY(-2px);
+  box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.15); border-color: #cbd5e1;
+}
+.fab-filter svg { width: 24px; height: 24px; }
+
+/* ==========================================================================
+   4. PANEL LATERAL DE FILTROS (DISEÑO PREMIUM SLIDE-OUT)
+   ========================================================================== */
+.filter-side-panel {
+  position: absolute;
+  top: 20px; right: -380px; 
+  width: 360px;
+  max-height: calc(100vh - 100px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 24px;
+  box-shadow: -10px 10px 40px rgba(15, 23, 42, 0.12);
+  z-index: 100;
+  display: flex; flex-direction: column;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-side-panel.show { right: 20px; }
+
+.panel-header {
+  padding: 20px 24px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.header-text h3 { margin: 0 0 4px 0; font-size: 1.25rem; font-weight: 700; color: #0f172a; }
+.header-text p { margin: 0; font-size: 0.85rem; color: #64748b; line-height: 1.4; }
+
+.close-btn {
+  background: transparent; border: none; color: #64748b; cursor: pointer;
+  padding: 4px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: background 0.2s;
+}
+.close-btn:hover { background: #f1f5f9; color: #0f172a; }
+.close-btn svg { width: 22px; height: 22px; }
+
+.panel-body {
+  padding: 20px 24px; overflow-y: auto; flex: 1;
+  display: flex; flex-wrap: wrap; gap: 8px; max-height: 350px;
+}
+.panel-body::-webkit-scrollbar { width: 6px; background: transparent; }
+.panel-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+.filter-chip {
+  padding: 10px 16px; background: #f8fafc; border: 1px solid #e2e8f0;
+  border-radius: 20px; font-size: 0.88rem; font-weight: 600; color: #475569;
+  cursor: pointer; transition: all 0.2s ease; display: inline-block;
+}
+.filter-chip:hover { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; transform: translateY(-1px); }
+.filter-chip.active {
+  background: #005fa3; color: #ffffff; border-color: #005fa3;
+  box-shadow: 0 4px 12px rgba(0, 95, 163, 0.25);
+}
+
+.panel-footer {
+  padding: 20px 24px; background: #f8fafc;
+  border-top: 1px solid #f1f5f9; border-radius: 0 0 24px 24px;
+}
+.panel-footer h4 { margin: 0 0 12px 0; font-size: 0.9rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;}
+
+.action-buttons-container { display: flex; gap: 12px; }
+
+.action-btn {
+  flex: 1; padding: 12px; border-radius: 14px; font-weight: 600; font-size: 0.95rem;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: pointer; transition: all 0.2s;
+}
+.action-btn svg { width: 20px; height: 20px; }
+
+/* Outline (Reseñar) */
+.outline-btn { background: transparent; border: 2px solid #cbd5e1; color: #475569; }
+.outline-btn:hover { border-color: #94a3b8; color: #0f172a; background: #f1f5f9; }
+
+/* Contained (Publicar) */
+.primary-btn { background: #005fa3; border: 2px solid #005fa3; color: #ffffff; box-shadow: 0 4px 10px rgba(0, 95, 163, 0.2); }
+.primary-btn:hover { background: #004d80; border-color: #004d80; transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 95, 163, 0.3); }
+
+/* ==========================================================================
+   5. MODO OSCURO PREMIUM
+   ========================================================================== */
+:host-context(body.dark-mode) .fab-filter { background: #1e293b; border-color: #334155; color: #f8fafc; }
+:host-context(body.dark-mode) .fab-filter:hover { background: #334155; border-color: #475569; }
+
+:host-context(body.dark-mode) .filter-side-panel { background: rgba(15, 23, 42, 0.85); border-color: rgba(51, 65, 85, 0.8); box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.4); }
+:host-context(body.dark-mode) .panel-header { border-bottom-color: #334155; }
+:host-context(body.dark-mode) .header-text h3 { color: #f8fafc; }
+:host-context(body.dark-mode) .close-btn { color: #94a3b8; }
+:host-context(body.dark-mode) .close-btn:hover { background: #334155; color: #ffffff; }
+
+:host-context(body.dark-mode) .filter-chip { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+:host-context(body.dark-mode) .filter-chip:hover { background: #334155; border-color: #475569; color: #ffffff; }
+:host-context(body.dark-mode) .filter-chip.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2); }
+
+:host-context(body.dark-mode) .panel-footer { background: #1e293b; border-top-color: #334155; }
+:host-context(body.dark-mode) .outline-btn { border-color: #475569; color: #cbd5e1; }
+:host-context(body.dark-mode) .outline-btn:hover { border-color: #64748b; color: #ffffff; background: #334155; }
+:host-context(body.dark-mode) .primary-btn { background: #38bdf8; border-color: #38bdf8; color: #0f172a; }
+:host-context(body.dark-mode) .primary-btn:hover { background: #0284c7; border-color: #0284c7; color: #ffffff; }

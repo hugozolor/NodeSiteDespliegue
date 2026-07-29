@@ -1,0 +1,92 @@
+/* ==========================================================================
+   VARIABLES NATIVAS (Tokens de Diseño del Sistema Administrativo)
+========================================================================== */
+:host {
+  display: block;
+  width: 100%;
+  margin-top: auto; /* Pasa el componente al fondo si el contenedor padre es Flexbox */
+  
+  --footer-bg: #F3F3F3;
+  --text-main: #232D4F;
+  --text-muted: #5F6B7A;
+  --border-color: #D8DDE6;
+}
+
+:host-context(.dark-mode) {
+  --footer-bg: #1E1E1E;
+  --text-main: #FFFFFF;
+  --text-muted: #B0B0B0;
+  --border-color: #3A3A3A;
+}
+
+/* ==========================================================================
+   ESTILOS BASE DEL CONTENEDOR (Estructura Unificada y Centrada)
+========================================================================== */
+.nodesite-admin-footer {
+  background-color: var(--footer-bg);
+  border-top: 1px solid var(--border-color);
+  min-height: 60px; /* Rango exacto óptimo */
+  padding: 15px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  
+  transition: 
+    background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nodesite-admin-footer.dark-mode {
+  --footer-bg: #1E1E1E;
+  --text-main: #FFFFFF;
+  --text-muted: #B0B0B0;
+  --border-color: #3A3A3A;
+}
+
+.footer-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ==========================================================================
+   TEXTO UNIFICADO (Elimina la separación extrema)
+========================================================================== */
+.footer-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin: 0;
+  letter-spacing: 0.1px;
+}
+
+.brand-highlight {
+  font-weight: 700;
+}
+
+.footer-separator {
+  margin: 0 8px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.location-highlight {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Diseño adaptativo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .footer-text {
+    font-size: 12px;
+  }
+  .footer-separator {
+    display: block;
+    margin: 4px 0;
+  }
+}

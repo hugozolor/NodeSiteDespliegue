@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+body, html {
+    height: 100%;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.home-wrapper {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    color: #ffffff;
+}
+
+/* --- FONDOS --- */
+.background-container {
+    position: absolute;
+    inset: 0;
+    background-image: url('../../../../public/images/fondo-movil.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.neblina-general { background: rgba(0, 0, 0, 0.2); }
+.neblina-superior { background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent); height: 40%; }
+.neblina-inferior { background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); top: auto; bottom: 0; height: 50%; }
+
+/* --- INTERFAZ --- */
+.ui-layer {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-side { 
+    width: 70px; /* Tamaño intermedio: ni muy grande ni muy chico */
+    opacity: 1;  /* Le damos total opacidad para que brille el logo */
+    display: flex;
+    align-items: center;
+}
+.logo-img { 
+    width: 100%; 
+    height: auto; 
+    display: block; /* Evita espacios extra debajo de la imagen */
+    pointer-events: none; /* Asegura que no haga nada al hacer clic */
+}
+
+.btn-login {
+    background: transparent;
+    border: 2px solid rgba(300,300,300,5); /* Borde más fino */
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600; /* Más fino */
+    cursor: pointer;
+}
+
+/* --- NOMBRE DEL PROYECTO (EL FOCO) --- */
+.hero-branding {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.project-name {
+    font-size: 3.2rem;
+    letter-spacing: -1.5px;
+}
+
+.node {
+    color: #e4e4e4 !important;
+    font-weight: 800 !important;
+}
+
+/* CAMBIO DE COLOR AQUÍ: Puse un celeste eléctrico que queda increíble con el blanco */
+.site {
+    color: #4d95a5 !important; 
+    font-weight: 600 !important; /* "site" más fino que "NODE" lo hace ver muy moderno */
+}
+
+/* --- TEXTOS REFINADOS --- */
+.content-bottom {
+    margin-top: auto;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.title-main { 
+    font-size: 1.5rem; 
+    font-weight: 600; /* Antes estaba en 700, ahora es elegante */
+    margin-bottom: 8px; 
+}
+
+.description-text { 
+    font-size: 0.85rem; 
+    font-weight: 500; /* Muy fino */
+    color: rgb(255, 255, 255); 
+    max-width: 280px; 
+    margin: 0 auto 25px; 
+    line-height: 1.4;
+}
+
+.btn-start {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px;
+    background: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 8px; /* Menos redondeado para que sea más sobrio */
+    font-weight: 600; /* No tan gordo */
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* REGISTRARSE: AZUL LINK FINO */
+.link-registro {
+    color: #3399ff !important; 
+    text-decoration: none;
+    font-weight: 500 !important;
+    border-bottom: 1px solid #3399ff; /* Subrayado más elegante */
+}
+
+.footer-action { 
+    margin-top: 20px; 
+    font-size: 0.85rem; 
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+}
+
+/* --- PC --- */
+@media (min-width: 1024px) {
+    .background-container { background-image: url('../../../../public/images/fondo-pc.webp'); }
+    .project-name { font-size: 5.5rem; }
+    .description-text { max-width: 450px; font-size: 1rem; }
+}

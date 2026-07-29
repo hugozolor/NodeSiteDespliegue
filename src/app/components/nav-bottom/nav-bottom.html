@@ -1,0 +1,28 @@
+    <nav class="bottom-nav">
+    <a class="nav-item" routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon class="material-symbols-outlined">grid_view</mat-icon>
+        <span>Inicio</span>
+    </a>
+
+    <a class="nav-item" routerLink="/notificaciones" routerLinkActive="active-link">
+        <mat-icon class="material-symbols-outlined">notifications_active</mat-icon>
+        <span>Avisos</span>
+    </a>
+
+    <a class="nav-item action-button" routerLink="/mapa" routerLinkActive="active-link">
+        <div class="icon-circle">
+        <mat-icon class="material-symbols-outlined">travel_explore</mat-icon>
+        </div>
+        <span class="map-label">Mapa</span>
+    </a>
+
+    <a class="nav-item" routerLink="/historial" routerLinkActive="active-link">
+        <mat-icon class="material-symbols-outlined">receipt_long</mat-icon>
+        <span>Historial</span>
+    </a>
+
+    <a class="nav-item" routerLink="/mi-cuenta" routerLinkActive="active-link">
+        <mat-icon class="material-symbols-outlined">badge</mat-icon>
+        <span>Mi Cuenta</span>
+    </a>
+    </nav>

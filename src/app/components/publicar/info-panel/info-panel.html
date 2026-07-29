@@ -1,0 +1,49 @@
+<div class="panel-container anim-slide-in">
+  <button class="btn-close" (click)="cerrar()">✕</button>
+
+  @if (reporte) {
+    
+    <div class="panel-header">
+      <div class="user-profile">
+        <div class="avatar-circle">
+            {{ reporte.usuario.charAt(0) }}
+        </div>
+        <div class="user-details">
+            <span class="username">{{ reporte.usuario }}</span>
+            <span class="report-type">{{ reporte.tipoPin?.nombre }}</span>
+        </div>
+      </div>
+      <div class="date-badge">
+        {{ reporte.fecha | date:'dd MMM' }}
+      </div>
+    </div>
+
+    <div class="panel-scroll-content">
+      
+      @if (tieneFotos()) {
+        <div class="photos-section">
+          <label>EVIDENCIA</label>
+          <div class="horizontal-gallery">
+            @for (foto of reporte.fotos; track $index) {
+              <div class="photo-item" (click)="verFoto($index)">
+                <img [src]="foto" alt="Evidencia">
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="description-section">
+        <label>DETALLES DEL REPORTE</label>
+        <p class="description-text">
+          {{ reporte.descripcion }}
+        </p>
+      </div>
+
+      <div class="actions-footer">
+        <button class="btn-validate">✅ Validar</button>
+        <button class="btn-share">Compartir</button>
+      </div>
+    </div>
+  }
+</div>

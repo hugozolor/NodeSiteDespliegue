@@ -1,0 +1,353 @@
+/* ==========================================================================
+   1. VARIABLES MAESTRAS Y LAYOUT GLOBAL (Fija los componentes en su lugar)
+   ========================================================================== */
+.global-admin-layout {
+  /* Paleta Base - Modo Claro */
+  --bg-app: #E5E7EB;
+  --bg-panel: #FFFFFF;
+  --bg-row: #FFFFFF;
+  --bg-row-hover: #F8FAFC;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --border-color: #E2E8F0;
+  
+  --wp-blue: #1A5C94;
+  --wp-blue-hover: #154a77;
+  --status-blue: #3B82F6;
+  --status-yellow: #F59E0B;
+  --status-red: #EF4444;
+
+  display: flex;
+  height: 100vh;      /* Obligatorio para fijar la cabecera y el menú */
+  width: 100vw;
+  background-color: var(--bg-app);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-main);
+  overflow: hidden;   /* Evita que todo el cuerpo se mueva */
+}
+
+/* Modo Oscuro Global */
+.global-admin-layout.dark-theme {
+  --bg-app: #0F172A;
+  --bg-panel: #1E293B;
+  --bg-row: #1E293B;
+  --bg-row-hover: #334155;
+  --border-color: #334155;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+}
+
+/* ==========================================================================
+   2. ESTRUCTURA DEL WORKSPACE (La magia para que no se rompa abajo)
+   ========================================================================== */
+.main-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.workspace-scroll-viewport {
+  flex: 1;
+  overflow-y: auto;   /* Únicamente scrollea el contenido central */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-app);
+}
+
+.page-content-padding {
+  padding: 20px 24px;
+  flex: 1;            /* Ocupa el espacio libre, mandando el footer abajo */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   3. BARRA AZUL (Breadcrumb & KPI)
+   ========================================================================== */
+.wispro-blue-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--wp-blue);
+  color: #FFFFFF;
+  padding: 12px 20px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.breadcrumb-text { font-size: 0.9rem; }
+.breadcrumb-text strong { font-weight: 600; }
+.kpi-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   4. TOOLBAR Y FILTROS
+   ========================================================================== */
+.erp-toolbar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 20px;
+}
+.search-wrapper input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-panel);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.search-wrapper input:focus {
+  outline: none;
+  border-color: var(--wp-blue);
+  box-shadow: 0 0 0 3px rgba(26, 92, 148, 0.1);
+}
+
+.btn-erp-outline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel);
+  color: var(--text-main);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.btn-erp-outline:hover, .btn-erp-outline.active {
+  background-color: var(--wp-blue-hover);
+  color: #fff;
+  border-color: var(--wp-blue-hover);
+}
+
+.filters-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+}
+.filters-panel.open {
+  padding: 20px;
+  max-height: 500px;
+  opacity: 1;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.panel-title { margin: 0 0 16px 0; font-size: 1rem; color: var(--text-main); }
+.filters-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+.filter-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
+.filter-group label { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+.filter-group label span { font-size: 16px; }
+.erp-select, .erp-input {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   5. TABLA DE RESEÑAS COMPACTA
+   ========================================================================== */
+.wispro-table-container {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.wispro-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem; /* Fuente un poco más pequeña para compactar */
+}
+
+/* Paddings reducidos para condensar la vista */
+.wispro-table th, 
+.wispro-table td {
+  padding: 10px 14px; 
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wispro-table th {
+  background-color: var(--bg-panel);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.wispro-table tbody tr {
+  background-color: var(--bg-row);
+  transition: background-color 0.2s;
+}
+.wispro-table tbody tr:hover { background-color: var(--bg-row-hover); }
+
+/* Columnas */
+.col-estado { width: 60px; }
+.col-usuario { width: 180px; }
+.col-barrio { width: 140px; }
+.col-rating { width: 120px; }
+.col-descripcion { min-width: 250px; max-width: 350px; }
+.col-fecha, .col-hora { width: 90px; }
+.col-acciones { width: 80px; }
+
+.text-center { text-align: center; }
+.font-medium { font-weight: 500; color: var(--text-main); }
+
+.badge-barrio {
+  background-color: var(--bg-app);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+}
+
+.description-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 350px;
+  color: var(--text-muted);
+}
+
+/* Estrellas */
+.rating-stars { display: inline-flex; gap: 2px; }
+.star-icon { font-size: 16px; }
+.star-icon.filled { color: #F59E0B; font-variation-settings: 'FILL' 1; }
+.star-icon.empty { color: var(--border-color); font-variation-settings: 'FILL' 0; }
+
+/* Menú de Estados (Status Boxes) */
+.status-wrapper { position: relative; display: inline-block; cursor: pointer; }
+.status-box {
+  width: 14px; height: 14px; border-radius: 3px; margin: 0 auto;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+  transition: transform 0.2s;
+}
+.status-box:hover { transform: scale(1.15); }
+.bg-blue { background-color: var(--status-blue); }
+.bg-yellow { background-color: var(--status-yellow); }
+.bg-red { background-color: var(--status-red); }
+
+.status-menu {
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  width: 130px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 5px;
+}
+.status-option {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 4px;
+  color: var(--text-main);
+  transition: background 0.2s;
+}
+.status-option:hover { background: var(--bg-row-hover); }
+
+/* Acciones (Botones) */
+.actions-group { display: flex; justify-content: center; }
+.wispro-action-icon-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  width: 32px; height: 32px;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.wispro-action-icon-btn.btn-delete:hover {
+  border-color: #EF4444;
+  color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Estado Vacío */
+.wispro-empty-state-row { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+
+/* ==========================================================================
+   6. PAGINACIÓN
+   ========================================================================== */
+.pagination-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24px;
+  gap: 8px;
+  padding-bottom: 20px;
+}
+.pagination-controls { display: flex; align-items: center; gap: 6px; }
+.btn-page {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-page:hover:not([disabled]) {
+  background-color: var(--bg-row-hover);
+  border-color: var(--wp-blue);
+  color: var(--wp-blue);
+}
+.btn-page.active {
+  background-color: var(--wp-blue);
+  color: #fff;
+  border-color: var(--wp-blue);
+}
+.btn-page[disabled] { opacity: 0.5; cursor: not-allowed; }
+.pagination-info { font-size: 0.8rem; color: var(--text-muted); }

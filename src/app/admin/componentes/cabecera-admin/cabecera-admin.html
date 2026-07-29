@@ -1,0 +1,60 @@
+<header class="header-admin">
+  <!-- LADO IZQUIERDO: Control y Branding Oficial -->
+  <div class="header-left">
+    <button mat-icon-button class="burger-btn" (click)="layoutService.toggleSidebar()" aria-label="Menu Hamburguesa">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <div class="header-logo">
+      <!-- Tag oficial para tu SVG de la carpeta public -->
+      <img src="/NodesiteLogo.svg" alt="NODESITE Logo" class="logo-svg">
+      <span class="project-name">NODESITE</span>
+    </div>
+  </div>
+
+  <!-- CENTRO: Utilidad de tiempo sutil -->
+  <div class="header-center">
+    <div class="live-clock">
+      <mat-icon class="clock-icon">schedule</mat-icon>
+      <span class="date">{{ fechaActual | date:'EEEE, d MMMM' }}</span>
+      <span class="separator">|</span>
+      <span class="time">{{ fechaActual | date:'HH:mm:ss' }}</span>
+    </div>
+  </div>
+
+  <!-- LADO DERECHO: Acciones y Perfil SaaS -->
+  <div class="header-right">
+    <button mat-icon-button class="theme-btn" (click)="layoutService.toggleTheme()" [matTooltip]="layoutService.isDarkMode() ? 'Modo Claro' : 'Modo Oscuro'">
+      <mat-icon>{{ layoutService.isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="adminMenu" class="admin-profile-btn">
+      <div class="avatar-container">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+    </button>
+
+    <mat-menu #adminMenu="matMenu" xPosition="before" class="premium-dropdown-menu">
+      <div class="dropdown-header" (click)="$event.stopPropagation()">
+        <p class="user-name">{{ adminProfile.nombre }}</p>
+        <p class="user-email">{{ adminProfile.correo }}</p>
+        <span class="user-badge">{{ adminProfile.rol }}</span>
+        <div class="dropdown-divider"></div>
+        <p class="last-access">Último acceso: {{ adminProfile.ultimoAcceso | date:'dd/MM/yy HH:mm' }}</p>
+      </div>
+      
+      <div class="dropdown-divider"></div>
+
+      <button mat-menu-item (click)="onConfiguracion()">
+        <mat-icon>settings</mat-icon>
+        <span>Configuración de cuenta</span>
+      </button>
+      
+      <button mat-menu-item (click)="onCerrarSesion()" class="logout-item">
+        <mat-icon class="logout-icon">logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</header>

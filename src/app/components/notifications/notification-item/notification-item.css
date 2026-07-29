@@ -1,0 +1,71 @@
+.notification-card {
+  background: white;
+  border-radius: 15px;
+  padding: 16px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-left: 4px solid #ddd;
+  transition: transform 0.2s;
+}
+
+.notification-card.unread {
+  border-left-color: #1a4d55;
+  background: #fdfdfd;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.type-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #eee;
+  color: #666;
+}
+
+.type-badge[data-type="WARNING"] { background: #fff3cd; color: #856404; }
+.type-badge[data-type="ALERT"] { background: #f8d7da; color: #721c24; }
+
+.date {
+  font-size: 11px;
+  color: #999;
+}
+
+h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.05rem;
+  color: #1a4d55;
+}
+
+p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.card-footer {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #1a4d55;
+  font-weight: 600;
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  background: #1a4d55;
+  border-radius: 50%;
+}

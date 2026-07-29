@@ -1,0 +1,125 @@
+/* 1. Mantenemos tu estructura elegante y profesional */
+.main-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 65px);
+  background-color: var(--primary-blue);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.white-sheet {
+  width: 100%;
+  max-width: 550px;
+  height: 88%; 
+  background-color: var(--card-light, #ffffff); /* Fallback a blanco si no hay variable */
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.sheet-content {
+  padding: 25px 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+h2 {
+  color: var(--text-light, #333333);
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  background-color: rgba(128, 128, 128, 0.1);
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 18px;
+  padding: 15px;
+  color: var(--text-light, #333333);
+  font-family: inherit;
+  resize: none;
+  outline: none;
+}
+
+.fotos-grid {
+  display: flex;
+  flex-direction: row; /* Fuerza la alineación horizontal */
+  justify-content: space-between; /* Las distribuye uniformemente */
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  margin-bottom: 30px;
+}
+
+.foto-box {
+  /* Usamos flex: 1 para que los 3 cuadros tengan el mismo tamaño exacto siempre */
+  flex: 1; 
+  aspect-ratio: 1 / 1; /* Mantiene el cuadro perfectamente cuadrado */
+  max-width: 100px; /* Evita que crezcan demasiado en PC */
+  background-color: rgba(128, 128, 128, 0.1);
+  border: 2px dashed rgba(128, 128, 128, 0.3);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-publicar {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 18px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: auto;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------- */
+/* 2. EL TRUCO FINAL: FORZAR MODO OSCURO                       */
+/* ----------------------------------------------------------- */
+
+/* Si tu app usa la clase .dark o .dark-mode en el body, esto lo capturará */
+:host-context(body.dark-mode) .white-sheet,
+:host-context(body.dark) .white-sheet,
+body.dark-mode .white-sheet,
+body.dark .white-sheet {
+  background-color: #1e1e1e !important; /* Un gris oscuro profundo profesional */
+}
+
+:host-context(body.dark-mode) h2,
+:host-context(body.dark) h2,
+:host-context(body.dark-mode) label,
+:host-context(body.dark) label {
+  color: #ffffff !important;
+}
+
+:host-context(body.dark-mode) textarea,
+:host-context(body.dark) textarea {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: #444444 !important;
+}
+
+/* Media query para PC */
+@media (min-width: 768px) {
+  .white-sheet {
+    max-width: 550px;
+  }
+}

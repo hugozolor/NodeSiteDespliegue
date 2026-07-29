@@ -1,0 +1,218 @@
+<div class="global-admin-layout" [class.dark-theme]="layoutService.isDarkMode()">
+  
+  <app-menu-lateral></app-menu-lateral> 
+
+  <div class="main-workspace">
+    
+    <app-cabecera-admin></app-cabecera-admin> 
+
+    <div class="workspace-scroll-viewport">
+      
+      <div class="page-content-padding">
+
+        <div class="blue-top-bar">
+          Datos de usuarios / <strong>Configuración de Usuarios</strong>
+        </div>
+
+        <div class="erp-grid-2-cols">
+          
+          <section class="erp-card">
+            <header class="erp-card-header blue-card-header">
+              <div class="header-title-group">
+                <span class="material-symbols-outlined">add_location_alt</span>
+                <div>
+                  <h3>{{ editandoPinId ? 'Editar Pin para Usuarios' : 'Nuevo Pin para Usuarios' }}</h3>
+                  <p>Crear un nuevo pin visible para los usuarios de la aplicación.</p>
+                </div>
+              </div>
+            </header>
+            
+            <div class="erp-card-body">
+              <div class="material-input-group">
+                <label>Título del Pin</label>
+                <input type="text" class="material-input" [(ngModel)]="nuevoPin.nombre" placeholder="Ingrese nombre del pin">
+              </div>
+              
+              <div class="drag-drop-zone" [class.has-file]="nuevoPin.iconoUrl">
+                <input type="file" id="userIconInput" (change)="onFileSelected($event)" accept="image/svg+xml, image/*" hidden>
+                <label for="userIconInput" class="upload-label">
+                  <span class="material-symbols-outlined upload-icon">
+                    {{ nuevoPin.iconoUrl ? 'check_circle' : 'upload_file' }}
+                  </span>
+                  <div class="upload-text">
+                    <span class="primary-text">{{ nuevoPin.iconoUrl ? 'Archivo SVG cargado exitosamente' : 'Haga clic para cargar un archivo SVG' }}</span>
+                    <span class="secondary-text">{{ nuevoPin.iconoUrl ? 'Clic para reemplazar por otro' : 'PNG, JPG o SVG (Recomendado)' }}</span>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="erp-actions">
+                <button class="btn-erp-primary full-width" (click)="guardarPin()" [disabled]="!nuevoPin.nombre">
+                  <span class="material-symbols-outlined">save</span>
+                  {{ editandoPinId ? 'Actualizar Pin' : 'Guardar Pin' }}
+                </button>
+                <button class="btn-erp-secondary full-width" *ngIf="editandoPinId" (click)="resetFormPin()">
+                  Cancelar Edición
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="erp-card highlight-card">
+            <header class="erp-card-header blue-card-header">
+              <div class="header-title-group">
+                <span class="material-symbols-outlined">visibility</span>
+                <div>
+                  <h3>Preview en Tiempo Real</h3>
+                  <p>Visualización del pin en el mapa</p>
+                </div>
+              </div>
+            </header>
+            <div class="erp-card-body map-simulation-container">
+              <div class="map-mockup">
+                <div class="pin-preview-wrapper">
+                  <img [src]="nuevoPin.iconoUrl || 'icons/pin.webp'" alt="Preview" class="preview-img">
+                  <div class="pin-shadow"></div>
+                  <span class="preview-label">{{ nuevoPin.nombre || 'Nombre del Pin' }}</span>
+                </div>
+              </div>
+              <div class="preview-info-box">
+                <div class="info-item">
+                  <span class="info-label">Archivo de Icono</span>
+                  <span class="info-value">{{ nuevoPin.iconoUrl ? 'Diseño Personalizado Cargado' : 'Icono por defecto' }}</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="erp-card mt-24">
+          <header class="erp-card-header blue-card-header">
+            <div class="header-title-group">
+              <span class="material-symbols-outlined">location_city</span>
+              <div>
+                <h3>{{ editandoBarrioId ? 'Editar Barrio' : 'Gestión de Barrios' }}</h3>
+                <p>Administración de barrios disponibles para los usuarios.</p>
+              </div>
+            </div>
+          </header>
+          <div class="erp-card-body row-layout">
+            <div class="material-input-group flex-grow">
+              <label>Nombre del Barrio</label>
+              <input type="text" class="material-input" [(ngModel)]="nuevoBarrioNombre" placeholder="Ingrese nombre de la zona o barrio">
+            </div>
+            <div class="actions-inline">
+              <button class="btn-erp-primary" (click)="guardarBarrio()" [disabled]="!nuevoBarrioNombre">
+                <span class="material-symbols-outlined">add_home_work</span>
+                {{ editandoBarrioId ? 'Actualizar Barrio' : 'Registrar Barrio' }}
+              </button>
+              <button class="btn-erp-secondary" *ngIf="editandoBarrioId" (click)="resetFormBarrio()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="erp-card admin-center mt-24">
+          <header class="erp-card-header blue-card-header">
+            <div class="header-title-group">
+              <span class="material-symbols-outlined">admin_panel_settings</span>
+              <div>
+                <h3>Centro de Administración</h3>
+                <p>Administración general de pines y barrios registrados en el sistema.</p>
+              </div>
+            </div>
+          </header>
+
+          <div class="erp-tabs">
+            <button class="tab-item" [class.active]="activeTab === 'pines'" (click)="activeTab = 'pines'">
+              <span class="material-symbols-outlined">pin_drop</span>
+              <span class="tab-label-text">Pines Registrados: <strong>{{ listaPines.length }}</strong></span>
+            </button>
+            <button class="tab-item" [class.active]="activeTab === 'barrios'" (click)="activeTab = 'barrios'">
+              <span class="material-symbols-outlined">location_city</span>
+              <span class="tab-label-text">Barrios Registrados: <strong>{{ listaBarrios.length }}</strong></span>
+            </button>
+          </div>
+
+          <div class="erp-table-container">
+            
+            <table class="erp-table" *ngIf="activeTab === 'pines'">
+              <thead>
+                <tr>
+                  <th width="80">Icono</th>
+                  <th>Nombre del Pin</th>
+                  <th>Fecha Creación</th>
+                  <th class="text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="listaPines.length === 0">
+                  <td colspan="4" class="empty-state">No hay pines registrados en el sistema.</td>
+                </tr>
+                <tr *ngFor="let pin of listaPines">
+                  <td>
+                    <div class="td-icon-box">
+                      <img [src]="pin.iconoUrl" alt="icon">
+                    </div>
+                  </td>
+                  <td class="fw-500">{{ pin.nombre }}</td>
+                  <td class="text-muted">Reciente</td>
+                  <td class="actions-cell">
+                    <button class="icon-btn text-primary" title="Editar" (click)="prepararEdicionPin(pin)">
+                      <span class="material-symbols-outlined">edit_note</span>
+                    </button>
+                    <button class="icon-btn text-danger" title="Eliminar" (click)="eliminarPin(pin.id)">
+                      <span class="material-symbols-outlined">delete_outline</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="erp-table" *ngIf="activeTab === 'barrios'">
+              <thead>
+                <tr>
+                  <th>Nombre del Barrio</th>
+                  <th>Fecha Registro</th>
+                  <th>Pines Asociados</th>
+                  <th class="text-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="listaBarrios.length === 0">
+                  <td colspan="4" class="empty-state">No hay barrios registrados en el sistema.</td>
+                </tr>
+                <tr *ngFor="let barrio of listaBarrios">
+                  <td class="fw-500">
+                    <div class="flex-align-center gap-2">
+                      <span class="material-symbols-outlined text-muted text-sm">location_city</span>
+                      {{ barrio.nombre }}
+                    </div>
+                  </td>
+                  <td class="text-muted">Reciente</td>
+                  <td class="text-muted">0</td>
+                  <td class="actions-cell">
+                    <button class="icon-btn text-primary" title="Editar" (click)="prepararEdicionBarrio(barrio)">
+                      <span class="material-symbols-outlined">edit_location_alt</span>
+                    </button>
+                    <button class="icon-btn text-danger" title="Eliminar" (click)="eliminarBarrio(barrio.id)">
+                      <span class="material-symbols-outlined">delete_outline</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="wispro-admin-footer">
+          <div class="footer-left-copyright">
+            <strong>Copyright</strong> NODESITE &copy; 2026
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+</div>

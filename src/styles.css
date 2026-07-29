@@ -1,0 +1,59 @@
+/* RESET Y ESTRUCTURA BASE */
+:root {
+  --primary-blue: #005fa3;
+  --dark-blue: #002d4d;
+  --bg-light: #f4f7f9;
+  --bg-dark: #0f172a;
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+  --text-light: #334155;
+  --text-dark: #f1f5f9;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Evita scroll doble */
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Scroll Global Controlado */
+.main-viewport {
+  height: calc(100vh - 65px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Animaciones */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .main-viewport {
+    /* Esto asegura que NINGUNA página sea tapada por la barra inferior */
+    padding-bottom: 90px; 
+    box-sizing: border-box;
+  }
+}

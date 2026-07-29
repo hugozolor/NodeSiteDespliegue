@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div class="main-container">
+    @if (sessionService.isGuest()) {
+        <app-guest-block></app-guest-block>
+      }
+
+  @if ((pasoActual$ | async) !== 'MAPA') {
+    <div class="white-sheet" @sheetAnimation>
+      <div class="sheet-content">
+        <h2>Nuevo Reporte</h2>
+        <hr style="opacity: 0.1; margin-bottom: 20px;">
+        
+        <app-selector-pin (onSeleccionar)="onPinSelected($event)"></app-selector-pin>
+
+        @if (pinSeleccionado) {
+          <div class="form-container" @slideUp>
+            
+            <div class="input-group" style="margin-top: 20px;">
+              <label>DESCRIPCIÓN DEL PROBLEMA</label>
+              <textarea 
+                [(ngModel)]="descripcion" 
+                placeholder="¿Qué está pasando?">
+              </textarea>
+            </div>
+
+            <div class="fotos-section" style="margin-top: 20px;">
+              <label>FOTOS (MÁXIMO 3)</label>
+              <div class="fotos-grid">
+                @for (item of [0, 1, 2]; track $index) {
+                  <label class="foto-box">
+                    @if (!fotos[$index]) {
+                      <span style="font-size: 28px; color: var(--text-light); opacity: 0.5;">+</span>
+                      <input type="file" (change)="subirFoto($event)" hidden accept="image/*">
+                    } @else {
+                      <span style="color: #10EB2C; font-size: 24px;">✓</span>
+                    }
+                  </label>
+                }
+              </div>
+            </div>
+
+            <button 
+              class="btn-publicar" 
+              [disabled]="!descripcion" 
+              (click)="intentarContinuar()">
+              Publicar
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (mostrarAlerta) {
+    <app-confirm-modal 
+      [barrio]="'su ubicación actual'" 
+      (onConfirm)="onConfirmarAlerta()" 
+      (onCancel)="onCancelarAlerta()">
+    </app-confirm-modal>
+  }
+</div>

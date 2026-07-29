@@ -1,0 +1,165 @@
+/* Contenedor principal */
+.resena-page {
+  display: flex; /* Flex para manejar el footer fijo mejor */
+  flex-direction: column;
+  width: 100%;
+  height: 100vh; /* Altura fija para permitir scroll interno */
+  background-color: #ffffff;
+  overflow: hidden; /* Evita doble scroll */
+}
+
+.content-wrapper {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 100px; /* Espacio para el botón flotante */
+}
+
+/* Área scrollable para las tarjetas */
+.scrollable-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  /* Scrollbar fina */
+  scrollbar-width: thin; 
+}
+
+/* Títulos */
+.intro-section h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+  color: #003366; 
+}
+
+.intro-section p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+.resenas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-resena {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+  position: relative;
+  
+  /* Evitar desborde horizontal en móviles */
+  max-width: 100%; 
+  box-sizing: border-box;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tag-barrio {
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* MANEJO DE TEXTO LARGO */
+.comment {
+  color: #334155;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  
+  /* Propiedades mágicas para romper palabras largas */
+  white-space: pre-wrap;       /* Respeta saltos de línea */
+  word-wrap: break-word;       /* Rompe palabras largas */
+  overflow-wrap: break-word;   /* Estándar moderno */
+  word-break: break-word;      /* Soporte extra */
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  margin-top: 10px;
+  color: #10b981;
+  font-weight: 600;
+}
+.status-badge.moderada { color: #f59e0b; }
+
+/* Empty State */
+.empty-container {
+  text-align: center;
+  margin-top: 40px;
+  padding: 40px;
+  background: #f8fafc;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-icon-svg {
+  width: 60px;
+  height: 60px;
+  color: #cbd5e1;
+  margin-bottom: 15px;
+}
+
+.empty-container h2 { color: #1e293b; font-size: 1.2rem; margin-bottom: 10px; }
+
+/* FOOTER FIJO */
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, #ffffff 85%, rgba(255, 255, 255, 0));
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+  pointer-events: none; /* Permite clicks a través del gradiente */
+}
+
+.btn-main {
+  pointer-events: auto; /* Reactiva clicks en el botón */
+  width: 100%;
+  max-width: 350px;
+  background: #0072bb;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 50px; /* Más redondo y moderno */
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 10px 25px rgba(0, 114, 187, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-main:active { transform: scale(0.98); }
+
+/* MODO OSCURO */
+:host-context(body.dark-mode) .resena-page { background-color: #0f172a !important; }
+:host-context(body.dark-mode) .fixed-footer { background: linear-gradient(to top, #0f172a 85%, rgba(15, 23, 42, 0)) !important; }
+:host-context(body.dark-mode) .card-resena { background-color: #1e293b !important; border-color: #334155 !important; color: #fff; }
+:host-context(body.dark-mode) .intro-section h1, :host-context(body.dark-mode) .empty-container h2 { color: #f1f5f9 !important; }
+:host-context(body.dark-mode) .intro-section p, :host-context(body.dark-mode) .comment { color: #94a3b8 !important; }
+:host-context(body.dark-mode) .empty-container { background-color: #1e293b !important; }

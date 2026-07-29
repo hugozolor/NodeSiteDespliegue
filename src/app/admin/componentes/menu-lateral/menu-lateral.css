@@ -1,0 +1,197 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* Contenedor Principal Oficial (#232D4F) */
+.sidebar-container {
+  width: 260px;
+  height: 100%;
+  background-color: #232D4F;
+  color: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.08);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Área del Logo e Identidad */
+.brand {
+  height: 64px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Contenedor del Logo con proporciones exactas */
+.logo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  flex-shrink: 0; /* Evita que se deforme al colapsar */
+}
+
+/* Ajuste fino para tu SVG */
+.logo-svg {
+  width: 22px; /* Deja un margen interno óptico de 5px a cada lado */
+  height: 22px;
+  object-fit: contain; /* Mantiene la relación de aspecto del vector */
+  display: block;
+}
+
+.brand-text {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Contenedor con Scroll Minimalista */
+.menu-scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.menu-scroll-container::-webkit-scrollbar {
+  width: 4px;
+}
+.menu-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 16px 0;
+  margin: 0;
+}
+
+/* Categorías del Menú */
+.menu-category {
+  padding: 16px 24px 8px;
+  font-size: 0.68rem;
+  color: #94A3B8;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+/* Items y Enlaces */
+.menu-item {
+  position: relative;
+  padding: 2px 12px;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  color: #94A3B8;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.menu-icon {
+  margin-right: 14px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #94A3B8;
+  transition: color 0.2s ease;
+}
+
+.menu-text {
+  transition: opacity 0.2s ease;
+}
+
+/* Estados Interactivos: Hover */
+.menu-link:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #FFFFFF;
+}
+.menu-link:hover .menu-icon {
+  color: #FFFFFF;
+}
+
+/* Estado Activo Corporativo */
+.menu-link.active {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.menu-link.active .menu-icon {
+  color: #38BDF8;
+}
+
+.menu-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 4px;
+  background-color: #38BDF8;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Soporte para ítems sin ruta asignada aún */
+.disabled-link .menu-link {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.disabled-link .menu-link:hover {
+  background-color: transparent;
+  color: #94A3B8;
+}
+.disabled-link .menu-link:hover .menu-icon {
+  color: #94A3B8;
+}
+
+/* ─────────────────────────────────────────
+   COMPORTAMIENTO CUANDO ESTÁ COLAPSADO (.collapsed)
+   ───────────────────────────────────────── */
+
+.sidebar-container.collapsed {
+  width: 72px;
+}
+
+.sidebar-container.collapsed .brand-text,
+.sidebar-container.collapsed .menu-text {
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.sidebar-container.collapsed .brand {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar-container.collapsed .menu-link {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sidebar-container.collapsed .menu-icon {
+  margin-right: 0;
+}

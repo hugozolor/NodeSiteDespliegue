@@ -1,0 +1,20 @@
+<div class="nodesite-loader-overlay" *ngIf="isLoading$ | async">
+  <div class="loader-content-wrapper">
+    <div class="brand-logo-container">
+      <img src="assets/brand/logo-nodesite.svg" alt="NODESITE Logo" class="brand-logo">
+    </div>
+    
+    <!-- Corregido: mode="indeterminate" -->
+    <mat-progress-spinner
+      class="custom-spinner"
+      mode="indeterminate"
+      diameter="48"
+      strokeWidth="4">
+    </mat-progress-spinner>
+    
+    <div class="loader-text-group">
+      <h3 class="main-loader-text">Preparando panel administrativo</h3>
+      <p class="sub-loader-text">Sincronizando configuraciones institucionales...</p>
+    </div>
+  </div>
+</div>

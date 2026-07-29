@@ -1,0 +1,43 @@
+.learning-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #333333;
+}
+
+.course-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.course-header h1 {
+  color: #0056b3;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.module {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.module h3 {
+  color: #2c3e50;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.subtopics h4 {
+  margin-top: 1.5rem;
+  color: #495057;
+  font-size: 1.1rem;
+}
+
+.subtopics p {
+  color: #666666;
+  line-height: 1.5;
+}

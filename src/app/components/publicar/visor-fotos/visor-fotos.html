@@ -1,0 +1,11 @@
+<div class="overlay" (click)="cerrar.emit()">
+  <button class="btn-close">✕</button>
+  
+  <div class="viewer-content" (click)="$event.stopPropagation()">
+    <button class="nav-arrow" *ngIf="currentIndex() > 0" (click)="navegar(-1)">‹</button>
+    
+    <img [src]="fotos[currentIndex()]" class="main-img">
+    
+    <button class="nav-arrow" *ngIf="currentIndex() < fotos.length - 1" (click)="navegar(1)">›</button>
+  </div>
+</div>

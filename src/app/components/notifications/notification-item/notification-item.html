@@ -1,0 +1,17 @@
+<div class="notification-card" [class.unread]="!notification.isRead">
+  <div class="card-header">
+    <span class="type-badge" [attr.data-type]="notification.type">
+      {{ notification.type }}
+    </span>
+    <span class="date">{{ notification.createdAt | date:'dd/MM HH:mm' }}</span>
+  </div>
+  
+  <div class="card-body">
+    <h3>{{ notification.title }}</h3>
+    <p>{{ notification.message }}</p>
+  </div>
+
+  <div class="card-footer" *ngIf="!notification.isRead">
+    <span class="unread-dot"></span> Nuevo mensaje oficial
+  </div>
+</div>

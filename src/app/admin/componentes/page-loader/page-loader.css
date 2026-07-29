@@ -1,0 +1,70 @@
+/* ==========================================================================
+   NODESITE - PAGE LOADER (CSS PURO)
+   ========================================================================== */
+
+.nodesite-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #232D4F; /* Color principal NODESITE */
+  z-index: 9999; /* Asegura superposición absoluta */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.nodesite-loader-overlay .loader-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.nodesite-loader-overlay .brand-logo-container {
+  margin-bottom: 24px;
+  animation: logoPulse 2s infinite ease-in-out;
+}
+
+.nodesite-loader-overlay .brand-logo {
+  height: 48px;
+  width: auto;
+}
+
+/* Selector nativo de Angular para modificar el color interno del mat-spinner en CSS */
+::ng-deep .custom-spinner circle {
+  stroke: #ffffff !important;
+}
+
+.nodesite-loader-overlay .loader-text-group {
+  margin-top: 20px;
+}
+
+.nodesite-loader-overlay .main-loader-text {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px 0;
+}
+
+.nodesite-loader-overlay .sub-loader-text {
+  color: rgba(255, 255, 255, 0.6); /* Blanco con 60% de opacidad */
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Animación de pulso para el isotipo/logo */
+@keyframes logoPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.9; 
+  }
+  50% { 
+    transform: scale(1.04); 
+    opacity: 1; 
+  }
+}

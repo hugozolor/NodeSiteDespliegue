@@ -1,0 +1,33 @@
+.pie-pagina {
+  width: 100%;
+  margin-top: 50px;
+  padding-bottom: 20px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Estilo para la etiqueta hr solicitada */
+.linea-separadora {
+  border: 0;
+  height: 1px;
+  background-color: #cbd5e1;
+  margin-bottom: 20px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contenido-footer {
+  text-align: center;
+  color: #718096;
+}
+
+.contenido-footer p {
+  margin: 0 0 5px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.contenido-footer small {
+  font-size: 0.8rem;
+  color: #a0aec0;
+}

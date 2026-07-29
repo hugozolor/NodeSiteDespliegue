@@ -1,0 +1,260 @@
+/* LAYOUT GENERAL */
+.gestion-mapa-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #f8fafc;
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* SIDEBAR */
+.map-sidebar {
+  width: 400px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+  z-index: 1000; /* Sobre el mapa */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  padding: 24px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* BOTON REGRESAR */
+.btn-back {
+  background: #f1f5f9;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+}
+.btn-back:hover { background: #e2e8f0; color: #0f172a; }
+
+/* HEADER SIDEBAR */
+.sidebar-header h2 {
+  color: #0f172a;
+  margin: 0 0 5px 0;
+  font-size: 1.5rem;
+}
+.sidebar-header p {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+/* FORMULARIOS */
+.form-section { margin-bottom: 16px; }
+.form-section label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #002d4d;
+  box-shadow: 0 0 0 3px rgba(0,45,77,0.1);
+}
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* UPLOAD */
+.file-upload-box { position: relative; }
+#file-input { display: none; }
+.upload-label {
+  display: block;
+  padding: 10px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: 0.2s;
+}
+.upload-label:hover { border-color: #002d4d; color: #002d4d; background: #f8fafc; }
+.success-text { color: #10b981; font-weight: 600; }
+.preview-mini { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-top: 8px; }
+
+/* INDICADORES Y BOTONES */
+.status-indicator {
+  padding: 10px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  color: #64748b;
+  font-size: 0.85rem;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px;
+}
+.dot { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; }
+.status-indicator.ready { background: #ecfdf5; color: #065f46; }
+.status-indicator.ready .dot { background: #10b981; }
+
+.btn-primary {
+  width: 100%;
+  background: #0f172a;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-secondary {
+  width: 100%;
+  background: white;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px; /* Separación del botón primario */
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+
+/* MAPA */
+.map-view { flex: 1; height: 100%; }
+
+/* ====================================================== */
+/* ESTILOS POPUP GOOGLE MAPS (Sobreescritura de Leaflet)  */
+/* ====================================================== */
+
+::ng-deep .google-maps-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+::ng-deep .google-maps-popup .leaflet-popup-content {
+  margin: 0 !important;
+  width: 280px !important;
+}
+::ng-deep .leaflet-popup-tip {
+  background: white;
+}
+
+/* CONTENIDO INTERNO POPUP */
+.gm-style-popup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-hero-img {
+  width: 100%;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+}
+
+.popup-body { padding: 16px; }
+
+.popup-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #202124;
+}
+
+/* HEADER USUARIO */
+.popup-user-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.user-avatar {
+  width: 30px; height: 30px; background: #3b82f6; color: white;
+  border-radius: 50%; display: flex; justify-content: center; align-items: center;
+  font-weight: bold; font-size: 0.8rem;
+}
+.user-name { font-weight: 600; color: #374151; }
+
+.upload-placeholder, .upload-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon-2d {
+  width: 24px;
+  height: 24px;
+  color: #64748b;
+}
+
+.icon-2d.success {
+  color: #10b981;
+}
+
+.preview-grid {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.preview-mini {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+/* METADATA */
+.popup-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px; font-size: 0.75rem; color: #6b7280;
+}
+.badge {
+  padding: 2px 6px; border-radius: 4px; font-weight: 700; text-transform: uppercase;
+}
+.badge.admin { background: #e0f2fe; color: #0369a1; }
+.badge.usuario { background: #fef3c7; color: #b45309; }
+
+.popup-desc {
+  margin: 0; color: #3c4043; font-size: 0.9rem; line-height: 1.5;
+}
+
+.popup-footer {
+  border-top: 1px solid #f3f4f6;
+  padding: 10px 16px;
+  text-align: right;
+  background: #f9fafb;
+}
+
+.btn-popup-action {
+  border: none; background: transparent; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600;
+}
+.btn-popup-action.edit { color: #2563eb; }
+.btn-popup-action.delete { color: #dc2626; }
+.btn-popup-action:hover { text-decoration: underline; }

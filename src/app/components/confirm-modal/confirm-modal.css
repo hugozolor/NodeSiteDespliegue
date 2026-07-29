@@ -1,0 +1,183 @@
+/* --- 1. FONDO BLUR Y CONTENEDOR PRINCIPAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.6); /* Fondo semiocuro premium */
+  backdrop-filter: blur(6px);         /* Difuminado de fondo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; 
+  padding: 20px;
+}
+
+.modal-card {
+  background: #ffffff;
+  padding: 35px 28px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e2e8f0;
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(25px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- 2. FIJACIÓN DE DISEÑO PARA EL ICONO 2D --- */
+.icon-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.icon-circle {
+  width: 68px;
+  height: 68px;
+  background-color: rgba(0, 95, 163, 0.08); /* Fondo suave basado en tu --primary-blue */
+  color: #005fa3;                             /* Color original superior */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 95, 163, 0.1);
+}
+
+.icon-2d {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* --- 3. SECCIÓN DE TEXTO --- */
+h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #232D4F; /* --dark-blue */
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.warning-body {
+  background: #fff5f5;
+  color: #334155;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  text-align: left;
+  margin-bottom: 26px;
+}
+
+.warning-body p { margin: 0; }
+.warning-body p:not(:last-child) { margin-bottom: 8px; }
+.warning-body strong { color: #232D4F; font-weight: 700; }
+
+/* --- 4. BOTONES MEJORADOS --- */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-confirm {
+  width: 100%;
+  padding: 14px 20px;
+  background: #005fa3; /* --primary-blue */
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 95, 163, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-confirm:hover {
+  background: #232D4F; /* --dark-blue en hover */
+  box-shadow: 0 6px 16px rgba(35, 45, 79, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-confirm:active {
+  transform: translateY(1px);
+}
+
+.btn-edit {
+  width: 100%;
+  padding: 14px 20px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
+/* --- 5. ADAPTACIÓN AL MODO OSCURO PREMIUM --- */
+:host-context(body.dark-mode) .modal-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+:host-context(body.dark-mode) h3 {
+  color: #ffffff;
+}
+
+:host-context(body.dark-mode) .icon-circle {
+  background-color: rgba(56, 189, 248, 0.15); /* Celeste moderno e iluminado para oscuros */
+  color: #38bdf8;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+}
+
+:host-context(body.dark-mode) .warning-body {
+  background: rgba(239, 68, 68, 0.1);
+  color: #cbd5e1;
+  padding: 16px;
+}
+
+:host-context(body.dark-mode) .warning-body strong {
+  color: #38bdf8;
+}
+
+:host-context(body.dark-mode) .btn-confirm {
+  background: #38bdf8; /* Tono de realce para modo oscuro */
+  color: #0f172a;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+}
+
+:host-context(body.dark-mode) .btn-confirm:hover {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.25);
+}
+
+:host-context(body.dark-mode) .btn-edit {
+  background: #273549;
+  border-color: #3a4b63;
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-mode) .btn-edit:hover {
+  background: #334155;
+  color: #ffffff;
+  border-color: #475569;
+}

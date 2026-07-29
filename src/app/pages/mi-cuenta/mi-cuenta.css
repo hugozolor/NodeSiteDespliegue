@@ -1,0 +1,361 @@
+:host {
+    /* --- PALETA DE COLORES PRINCIPAL --- */
+    --text-main: #232D4F; 
+    --text-muted: #64748b;
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --border-base: #cbd5e1;
+    --input-bg: #ffffff;
+    
+    /* Nuevas variables para inputs de solo lectura (Usuario/Correo) */
+    --readonly-bg: #f1f5f9;
+    --readonly-text: #64748b;
+
+    /* Botones primarios (Actualizar, Cambiar Contraseña) */
+    --btn-primary: #2C3C5F;
+    --btn-primary-hover: #1e2942;
+
+    /* --- MODO CLARO UNTOUCHED (SE MANTIENE EXACTAMENTE IGUAL) --- */
+    --warning-bg: #F1F5D7;
+    --warning-text: #232D4F;
+    --warning-border: #232D4F;
+
+    /* Nuevo rediseño del Botón Cerrar sesión Light Mode (Estilo Premium Borderless Soft Red) */
+    --logout-bg: #fff5f5;
+    --logout-text: #e11d48;
+    --logout-border: #ffe4e6;
+    --logout-hover-bg: #ffe4e6;
+    --logout-hover-text: #be123c;
+    --logout-hover-border: #fecdd3;
+}
+
+:host-context(body.dark-mode) {
+    /* --- VARIABLES MODO OSCURO --- */
+    --text-main: #ffffff; 
+    --text-muted: #cbd5e1;
+    --bg-page: #0f172a;
+    --bg-card: #1e293b;
+    --border-base: #334155;
+    --input-bg: #0f172a;
+    
+    /* Solución: Negro grisáceo para los inputs de información */
+    --readonly-bg: #111827; 
+    --readonly-text: #cbd5e1;
+
+    /* --- CORRECCIÓN: CAMBIO DE COLOR EN MODO OSCURO (Estilo Deep Slate / Blue Grey) --- */
+    --warning-bg: #1e293b;       /* Fondo oscuro integrado de forma elegante */
+    --warning-text: #e2e8f0;     /* Texto claro balanceado y legible */
+    --warning-border: #475569;   /* Borde suave sin estridencias */
+
+    /* Nuevo rediseño del Botón Cerrar sesión Dark Mode (Premium Transparent Glow) */
+    --logout-bg: rgba(244, 63, 94, 0.06);
+    --logout-text: #fb7185;
+    --logout-border: rgba(244, 63, 94, 0.15);
+    --logout-hover-bg: rgba(244, 63, 94, 0.16);
+    --logout-hover-text: #fda4af;
+    --logout-hover-border: rgba(244, 63, 94, 0.3);
+}
+
+:host-context(body.dark-mode) mat-icon {
+    color: #ffffff !important;
+}
+
+/* --- ESTRUCTURA GENERAL --- */
+.main-viewport-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--bg-page);
+    display: block;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Resalte de "Ten en cuenta:" */
+.highlight-text {
+    font-weight: 900 !important;
+    color: var(--text-main);
+}
+
+.main-container {
+    padding: 20px;
+    max-width: 650px;
+    margin: 0 auto;
+    padding-bottom: 120px;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.breadcrumb .root { color: var(--text-muted); }
+.breadcrumb .current { color: var(--text-main); margin-left: 4px; }
+.divider-icon { font-size: 18px; color: var(--text-muted); margin: 0 4px; }
+
+/* Tarjeta Principal */
+.account-card {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+/* --- INPUTS Y FORMULARIOS --- */
+.field-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.field-group label mat-icon { font-size: 20px; width: 20px; height: 20px; }
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border-base);
+    border-radius: 14px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.readonly-input {
+    background-color: var(--readonly-bg);
+    border-style: solid;
+    color: var(--readonly-text);
+    cursor: not-allowed;
+}
+
+/* Controles de Contraseña */
+.password-control, .password-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid var(--border-base);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--input-bg);
+}
+
+.password-control input, .password-input-wrapper input { 
+    border: none !important; 
+    flex-grow: 1; 
+}
+
+/* --- CUADRO DE AVISO MEJORADO --- */
+.anses-notice-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    border-radius: 14px; /* Bordes ligeramente más finos y modernos */
+    padding: 24px;
+    margin-top: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.anses-icon-container mat-icon {
+    font-size: 28px; /* Tamaño de ícono más estilizado y menos invasivo */
+    width: 28px;
+    height: 28px;
+    color: var(--warning-text);
+}
+
+.anses-content h3 {
+    margin: 0 0 10px 0;
+    color: var(--warning-text);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+/* --- CORRECCIÓN: FORMATO RECTANGULAR JUSTIFICADO Y HOMOGÉNEO --- */
+.anses-content p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--warning-text);
+    opacity: 0.95;
+    text-align: justify; /* Justificado perfecto con los bordes de la caja */
+}
+
+/* --- BOTONES Y ACCIONES --- */
+.actions-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.right-actions { display: flex; align-items: center; gap: 15px; }
+
+/* Botón: Cambiar Contraseña */
+.btn-change-trigger {
+    background: var(--btn-primary);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    height: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-change-trigger:hover {
+    background: var(--btn-primary-hover);
+}
+
+.btn-icon-eye {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+/* Botón: Actualizar */
+.btn-update {
+    background: var(--btn-primary);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(44, 60, 95, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-update:hover:not(:disabled) {
+    background: var(--btn-primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-update:disabled {
+    background: #cbd5e1;
+    color: #94a3b8;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Botón: Cancelar */
+.btn-cancel {
+    background: transparent;
+    border: none;
+    color: var(--btn-primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.btn-cancel:hover {
+    opacity: 0.7;
+}
+
+:host-context(body.dark-mode) .btn-cancel {
+    color: #cbd5e1;
+}
+
+/* --- CORRECCIÓN: REDISEÑO COMPLETO DEL BOTÓN CERRAR SESIÓN --- */
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--logout-bg);
+    border: 1px solid var(--logout-border);
+    color: var(--logout-text);
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estados Premium Hover & Active */
+.btn-logout:hover {
+    background: var(--logout-hover-bg);
+    color: var(--logout-hover-text);
+    border-color: var(--logout-hover-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.08);
+}
+
+.btn-logout:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Contenedor del checkbox */
+.confirmation-checkbox {
+    margin-top: 8px;
+    padding: 0 5px;
+}
+
+.confirmation-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.confirmation-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--btn-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 600px) {
+    .main-container {
+        padding-bottom: 160px; 
+    }
+
+    .actions-footer {
+        flex-direction: column;
+        gap: 50px;
+        align-items: stretch;
+    }
+
+    .right-actions {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .btn-logout, .btn-update, .btn-cancel {
+        width: 100%;
+        padding: 16px !important;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+/* Animación de despliegue */
+.expandable-section {
+    animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}

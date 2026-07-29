@@ -1,0 +1,562 @@
+/* ==========================================================================
+   1. CONFIGURACIÓN RAÍZ Y VARIABLES DINÁMICAS (TEMA CENTRALIZADO)
+   ========================================================================== */
+:host {
+  /* PALETA MODO CLARO ESTÁNDAR */
+  --w-bg-main: #f4f6f9;
+  --w-bg-surface: #ffffff;
+  --w-border: #e2e8f0;
+  --w-text-main: #1e293b;
+  --w-text-muted: #64748b;
+  
+  /* IDENTIDAD CELESTE INSTITUCIONAL */
+  --w-celeste-wispro: #0084ce;
+  --w-celeste-hover: #0073b5;
+  
+  /* NARANJA BADGES PINES-ADMIN */
+  --w-orange-pill: #ff9800;
+  --w-orange-pill-bg: #fff3e0;
+
+  --w-danger: #ef4444;
+  --w-danger-light: #fee2e2;
+  --w-success: #10b981;
+  --w-success-light: #d1fae5;
+
+  display: block;
+  min-height: 100vh;
+  background-color: var(--w-bg-main);
+  color: var(--w-text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ==========================================================================
+   2. TRATAMIENTO DE MODO OSCURO (CORRECCIÓN DE CONTRASSTE TOTAL)
+   ========================================================================== */
+.global-admin-layout.dark-theme {
+  --w-bg-main: #0f172a;       /* Fondo ultra oscuro profundo (Slate 900) */
+  --w-bg-surface: #1e293b;    /* Superficies y tarjetas (Slate 800) */
+  --w-border: #334155;        /* Bordes oscuros integrados (Slate 700) */
+  --w-text-main: #f8fafc;     /* Texto principal de alta visibilidad */
+  --w-text-muted: #94a3b8;    /* Texto secundario claro */
+  
+  /* Ajustes semánticos específicos para Modo Oscuro */
+  --w-celeste-wispro: #38bdf8;
+  --w-celeste-hover: #7dd3fc;
+  --w-orange-pill: #fb923c;
+  --w-orange-pill-bg: #2c1a04;
+  --w-danger-light: #451a1a;
+  --w-success-light: #064e3b;
+}
+
+/* Fuerza el fondo oscuro en todo el viewport para evitar filtraciones blancas */
+.global-admin-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--w-bg-main) !important;
+  color: var(--w-text-main) !important;
+}
+
+.main-workspace,
+.workspace-scroll-viewport,
+.page-content-padding {
+  background-color: var(--w-bg-main) !important;
+  flex: 1;
+}
+
+/* ==========================================================================
+   3. DISTRIBUCIÓN DEL ESPACIO DE TRABAJO (FLEXBOX CORE)
+   ========================================================================== */
+.main-workspace {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.workspace-scroll-viewport {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content-padding {
+  padding: 16px 24px;
+}
+
+/* ==========================================================================
+   4. BREADCRUMB AISLADO Y CONTENEDOR DE BOTÓN
+   ========================================================================== */
+.wispro-breadcrumb-bar {
+  background-color: #0084ce; /* Se mantiene en el azul de Wispro corporativo */
+  color: #ffffff !important;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.breadcrumb-text strong {
+  font-weight: 700;
+  color: #ffffff !important;
+}
+
+.action-row-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   5. TARJETAS Y CABECERAS CELESTES OPTIMIZADAS
+   ========================================================================== */
+.wispro-main-content-card {
+  background-color: var(--w-bg-surface);
+  border: 1px solid var(--w-border);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.wispro-blue-header-table {
+  background-color: #0084ce !important; /* Cabecera azul consistente */
+  color: #ffffff !important;
+  padding: 8px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: #ffffff !important;
+}
+
+.title-desc-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-desc-stack h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff !important;
+  line-height: 1.2;
+}
+
+.title-desc-stack p {
+  margin: 2px 0 0 0;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.9) !important;
+  line-height: 1.2;
+}
+
+/* ==========================================================================
+   6. FILTROS Y BADGES ESTILO PINES-ADMIN (NARANJA CORREGIDO)
+   ========================================================================== */
+.erp-table-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-badge-erp {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.filter-badge-erp mat-icon {
+  position: absolute;
+  left: 8px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--w-text-muted);
+  pointer-events: none;
+}
+
+.filter-badge-erp select {
+  padding: 0 8px 0 28px;
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: var(--w-bg-surface);
+  color: var(--w-text-main);
+  height: 28px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* BADGE RECTANGULAR NARANJA PINES-ADMIN */
+.pines-badge-pill {
+  background-color: var(--w-orange-pill-bg) !important;
+  color: var(--w-orange-pill) !important;
+  border: 1px solid var(--w-orange-pill) !important;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   7. TABLAS DE ALTA DENSIDAD INFORMATIVA
+   ========================================================================== */
+.erp-table-scroll-container {
+  max-height: 340px;
+  overflow-y: auto;
+  background-color: var(--w-bg-surface);
+}
+
+.erp-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  background-color: var(--w-bg-surface);
+}
+
+.erp-data-table th {
+  position: sticky;
+  top: 0;
+  background-color: var(--w-bg-main) !important;
+  color: var(--w-text-muted) !important;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--w-border);
+  z-index: 5;
+}
+
+.erp-data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--w-border);
+  color: var(--w-text-main);
+  vertical-align: middle;
+}
+
+.erp-data-table tbody tr:hover {
+  background-color: rgba(0, 132, 206, 0.04);
+}
+
+.row-alert-bg {
+  background-color: var(--w-danger-light) !important;
+}
+
+.row-disabled-history {
+  background-color: rgba(0, 0, 0, 0.02);
+  opacity: 0.85;
+}
+
+.cell-content-scrollable {
+  max-height: 48px;
+  overflow-y: auto;
+}
+
+.table-inner-text {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--w-text-muted);
+  white-space: pre-wrap;
+}
+
+.cell-title-bold {
+  font-weight: 600;
+  color: var(--w-text-main);
+}
+
+.cell-actions-wrapper {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   8. BOTONES DE ACCIÓN MÓDULO ERP
+   ========================================================================== */
+.btn-primary-erp {
+  background-color: #0084ce !important; /* Forzado color corporativo */
+  color: #ffffff !important;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary-erp:hover {
+  background-color: #0073b5 !important;
+}
+
+.btn-primary-erp mat-icon {
+  color: #ffffff !important; /* Garantiza visibilidad en cualquier modo */
+}
+
+/* Botón principal dentro del modal */
+.modal-footer .wispro-btn-primary {
+  background-color: #0084ce !important;
+  color: #ffffff !important;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.modal-footer .wispro-btn-primary:hover {
+  background-color: #0073b5 !important;
+}
+
+.wispro-btn-secundary {
+  background: transparent;
+  border: 1px solid var(--w-border);
+  color: var(--w-text-main);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  height: 30px;
+}
+
+.wispro-action-icon-btn {
+  background: var(--w-bg-surface);
+  border: 1px solid var(--w-border);
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--w-text-muted);
+}
+
+.wispro-action-icon-btn:hover {
+  border-color: #0084ce;
+  color: #0084ce;
+}
+
+/* ==========================================================================
+   9. CHIPS, VENTANA MODAL (SOLUCIÓN CAMUFLAJE DE TÍTULO E ICONOS)
+   ========================================================================== */
+.erp-chip {
+  display: inline-flex;
+  padding: 2px 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.chip-standard { background: #e0e7ff; color: #4338ca; }
+.chip-alert { background: var(--w-danger-light); color: var(--w-danger); }
+.chip-disabled { background: var(--w-border); color: var(--w-text-muted); }
+
+/* Capa de fondo del Modal */
+.erp-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* Ventana interna */
+.erp-modal-window {
+  background: var(--w-bg-surface) !important;
+  border: 1px solid var(--w-border);
+  border-radius: 6px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--w-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Arreglo específico para Título e Icono del Modal */
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-title-group h3 {
+  margin: 0;
+  color: var(--w-text-main) !important; /* Fuerza visibilidad en blanco u oscuro */
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.modal-title-group .modal-icon {
+  color: var(--w-text-main) !important; /* Resuelve camuflaje del icono */
+}
+
+.btn-close-icon {
+  background: transparent;
+  border: none;
+  color: var(--w-text-muted);
+  cursor: pointer;
+  display: flex;
+}
+.btn-close-icon:hover { color: var(--w-text-main); }
+
+/* Cuerpo del Formulario */
+.modal-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: var(--w-bg-surface);
+}
+
+.erp-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.erp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.erp-form-group.full-width { grid-column: span 2; }
+
+.erp-form-group label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--w-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.erp-form-group label mat-icon {
+  color: var(--w-text-muted) !important;
+}
+
+.erp-form-group input, 
+.erp-form-group select, 
+.erp-form-group textarea {
+  background-color: var(--w-bg-main) !important;
+  border: 1px solid var(--w-border);
+  color: var(--w-text-main) !important;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.erp-form-group input:focus, 
+.erp-form-group select:focus, 
+.erp-form-group textarea:focus {
+  outline: none;
+  border-color: #0084ce;
+}
+
+.composite-duration-input {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 8px;
+}
+
+.modal-footer {
+  padding: 12px 18px;
+  background: var(--w-bg-main);
+  border-top: 1px solid var(--w-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* ==========================================================================
+   10. UTILIDADES Y CONFIGURACIÓN AUXILIAR DE TEXTO
+   ========================================================================== */
+.erp-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  color: var(--w-text-muted);
+}
+
+.empty-icon { font-size: 28px; opacity: 0.4; }
+
+.wispro-footer-copyright {
+  padding: 14px 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--w-text-muted);
+  border-top: 1px solid var(--w-border);
+  margin-top: auto;
+  background-color: var(--w-bg-main);
+}
+
+.font-bold { font-weight: 700; }
+.text-muted { color: var(--w-text-muted) !important; }
+
+/* RESOLUCIÓN CAMUFLAJE COLUMNA DURACIÓN: Forzado dinámico del color */
+.text-mono {
+  font-family: monospace;
+  font-size: 11.5px;
+  color: var(--w-text-main) !important; 
+  font-weight: 600;
+}
+
+.text-date { font-size: 11.5px; color: var(--w-text-muted); }
+
+/* CONFIGURACIÓN DE SCROLLBARS */
+.erp-table-scroll-container::-webkit-scrollbar,
+.cell-content-scrollable::-webkit-scrollbar {
+  width: 5px; height: 5px;
+}
+.erp-table-scroll-container::-webkit-scrollbar-thumb,
+.cell-content-scrollable::-webkit-scrollbar-thumb {
+  background: var(--w-border); border-radius: 4px;
+}
+.erp-table-scroll-container::-webkit-scrollbar-thumb:hover,
+.cell-content-scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--w-text-muted);
+}

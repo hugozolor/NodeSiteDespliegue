@@ -1,0 +1,441 @@
+/* ==========================================================================
+   NODESITE - DISEÑO ADMINISTRATIVO PREMIUM (ESTILO WISPRO)
+   ========================================================================== */
+
+/* SISTEMA DE VARIABLES GLOBALES (MODO CLARO) */
+.global-admin-layout {
+  --bg-app: #E5E7EB;
+  --bg-panel: #FFFFFF;
+  --bg-row: #FFFFFF;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --border-color: #B8C5D6; 
+  --wp-blue: #1A5C94;
+  --wp-orange: #F9813A;
+  --wp-success: #10B981;
+  --wp-success-bg: #F0FDF4;
+
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-app);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* SISTEMA DE VARIABLES (MODO OSCURO) */
+.global-admin-layout.dark-theme,
+body.dark-theme .global-admin-layout {
+  --bg-app: #0F172A;
+  --bg-panel: #1E293B;
+  --bg-row: #334155;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --border-color: #475569;
+  --wp-blue: #0F4575;
+  --wp-success-bg: #064E3B;
+}
+
+/* ==========================================================================
+   ESTRUCTURA Y SCROLL DEL ESPACIO DE TRABAJO
+   ========================================================================== */
+.main-workspace {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Oculta el scroll a nivel de aplicación para delegarlo al viewport */
+}
+
+/* ESTE ES EL CONTENEDOR QUE DA EL SCROLL EN EL EXTREMO DERECHO */
+.workspace-scroll-viewport {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--bg-app);
+}
+
+/* Personalización elegante para la barra de desplazamiento lateral */
+.workspace-scroll-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.workspace-scroll-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+.workspace-scroll-viewport::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 10px;
+}
+.workspace-scroll-viewport::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
+}
+
+.page-content-padding {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* --- BARRA AZUL SUPERIOR --- */
+.wispro-blue-bar {
+  background-color: var(--wp-blue);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.breadcrumb-text {
+  font-size: 0.95rem;
+}
+
+/* BOTONES GENERALES */
+.wispro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  height: 36px;
+  transition: all 0.2s;
+}
+.wispro-btn-primary {
+  background-color: var(--wp-blue);
+  color: white;
+}
+.wispro-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.wispro-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.wispro-btn-danger-outline {
+  background-color: transparent;
+  border-color: #EF4444;
+  color: #EF4444;
+}
+.wispro-btn-danger-outline:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* --- GRID LAYOUT --- */
+.wispro-split-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+  margin-bottom: 40px; /* Separación marcada con el Copyright inferior */
+}
+
+/* ==========================================================================
+   PANEL IZQUIERDO: FORMULARIO
+   ========================================================================== */
+.wispro-sidebar-panel {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  height: max-content;
+  align-self: start; /* Impide que el formulario se estire hacia abajo inútilmente */
+}
+
+.wispro-panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wispro-panel-header h4 {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.wispro-panel-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.wispro-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wispro-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.custom-clean-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+.custom-clean-input:focus {
+  border-color: var(--wp-blue);
+  background-color: var(--bg-panel);
+  box-shadow: 0 0 0 3px rgba(26, 92, 148, 0.15);
+}
+
+.wispro-upload-zone {
+  border: 1px dashed var(--border-color);
+  background-color: var(--bg-app);
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.wispro-upload-zone:hover {
+  border-color: var(--wp-blue);
+}
+.wispro-upload-zone.file-selected-success {
+  border-color: var(--wp-success) !important;
+  background-color: var(--wp-success-bg) !important;
+}
+.wispro-upload-trigger {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.file-selected-success .wispro-upload-trigger {
+  color: var(--wp-success);
+}
+
+.wispro-preview-box {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-app);
+  border-radius: 6px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wispro-map-pin-indicator {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.wispro-map-pin-indicator img {
+  width: 100%; height: 100%; object-fit: contain;
+}
+
+.wispro-panel-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   PANEL DERECHO: HISTORIAL
+   ========================================================================== */
+.wispro-main-content {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent; 
+}
+
+.wispro-blue-header {
+  background-color: var(--wp-blue);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0; 
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid var(--wp-blue);
+  border-bottom: none;
+}
+
+.wispro-blue-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.wispro-badge-orange {
+  background-color: var(--wp-orange);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  letter-spacing: 0.5px;
+}
+
+.wispro-table-container {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 0 0 6px 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.04);
+}
+
+.wispro-table-header-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.wispro-table-body {
+  padding-top: 16px;
+}
+
+.wispro-table-row-card {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  align-items: center;
+  background-color: var(--bg-row);
+  border: 1px solid var(--border-color); 
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 12px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04); 
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.wispro-table-row-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  border-color: var(--wp-blue); 
+}
+
+.wispro-table-avatar {
+  width: 40px; height: 40px;
+  background-color: var(--bg-app);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-color);
+}
+.wispro-table-avatar img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+}
+
+.col-name {
+  overflow: hidden; 
+}
+
+.wispro-row-text-important {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.col-actions {
+  display: flex; gap: 8px; justify-content: flex-end;
+}
+
+.wispro-action-icon-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  width: 34px; height: 34px;
+  cursor: pointer;
+  color: var(--text-muted); 
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wispro-action-icon-btn:hover {
+  background-color: var(--bg-app);
+  color: var(--wp-blue);
+  border-color: var(--wp-blue);
+}
+
+.wispro-action-icon-btn.btn-delete:hover {
+  border-color: #EF4444; 
+  color: #EF4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.wispro-empty-state-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ==========================================================================
+   FOOTER COPYRIGHT
+   ========================================================================== */
+.wispro-footer-copyright {
+  background-color: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: auto; 
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.02);
+}
+
+body.dark-theme .wispro-footer-copyright {
+  background-color: var(--bg-panel);
+  border-top: 1px solid var(--border-color);
+  box-shadow: none;
+}

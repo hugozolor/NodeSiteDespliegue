@@ -1,0 +1,84 @@
+<app-header></app-header>
+
+<div class="main-viewport-wrapper">
+    <div class="main-container">
+        <nav class="breadcrumb">
+            <span class="root">Configuración</span>
+            <mat-icon class="divider-icon">chevron_right</mat-icon>
+            <span class="current">Mi cuenta</span>
+        </nav>
+
+        <section class="account-card">
+            <div class="field-group">
+                <label><mat-icon>badge</mat-icon> Nombre de usuario</label>
+                <input type="text" [value]="usuarioActual.username" readonly class="readonly-input">
+            </div>
+
+            <div class="field-group">
+                <label><mat-icon>alternate_email</mat-icon> Correo electrónico</label>
+                <input type="email" [value]="usuarioActual.email" readonly class="readonly-input">
+            </div>
+
+            <div class="field-group">
+                <label><mat-icon>lock_person</mat-icon> Contraseña</label>
+                <div class="password-control">
+                    <input type="password" value="********" readonly>
+                    <button class="btn-change-trigger" (click)="activarCambioPassword()">
+                        {{ showSecurityMessage ? 'Cancelar' : 'Cambiar' }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="expandable-section" *ngIf="showSecurityMessage">
+                <div class="field-group">
+                    <label><mat-icon>vpn_key</mat-icon> Nueva Contraseña</label>
+                    <div class="password-input-wrapper">
+                        <input [type]="hidePassword ? 'password' : 'text'" placeholder="Ingresa tu nueva clave" [(ngModel)]="nuevaPassword">
+                        <button class="btn-icon-eye" (click)="togglePassword()">
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="anses-notice-box">
+                    <div class="anses-icon-container">
+                        <mat-icon>error_outline</mat-icon>
+                    </div>
+                    <div class="anses-content">
+                        <h3>Aviso importante</h3>
+                        <p>
+                            Estás por actualizar tu contraseña de acceso. Para garantizar la protección de tu cuenta y asegurar que siempre puedas ingresar, te recomendamos elegir una combinación robusta y almacenarla de inmediato en un lugar seguro o en tu gestor de confianza.
+                        </p>
+                        <p style="margin-top: 10px;">
+                            <span class="highlight-text">Ten en cuenta:</span> Por motivos de seguridad y encriptación de datos, esta contraseña será la única vía para validar tu identidad. Si la pierdes o la olvidas, podrías perder el acceso de forma permanente a la plataforma. Asegúrate de registrarla correctamente antes de confirmar el cambio.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="confirmation-checkbox">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="aceptaRiesgo">
+                        <span>Entiendo que si olvido esta clave, no podré acceder a mi cuenta</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="actions-footer">
+                <button class="btn-logout" (click)="logout()">
+                    <mat-icon>logout</mat-icon> Cerrar sesión
+                </button>
+                
+                <div class="right-actions">
+                    <button class="btn-cancel" (click)="cancelar()">Cancelar</button>
+                    <button class="btn-update" 
+                        [disabled]="!nuevaPassword || nuevaPassword.length < 6 || !aceptaRiesgo" 
+                        (click)="actualizar()">
+                        ACTUALIZAR
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<app-nav-bottom></app-nav-bottom>

@@ -1,0 +1,236 @@
+<div class="global-admin-layout" [class.dark-theme]="layoutService.isDarkMode()">
+  
+  <app-menu-lateral></app-menu-lateral> 
+
+  <div class="main-workspace">
+    
+    <app-cabecera-admin></app-cabecera-admin> 
+
+    <div class="workspace-scroll-viewport">
+      
+      <div class="page-content-padding">
+        
+        <div class="wispro-breadcrumb-bar">
+          <div class="breadcrumb-text">
+            Centro de Noticias y Comunicados / <strong>Administración de Avisos</strong>
+          </div>
+        </div>
+
+        <div class="action-row-container">
+          <button class="btn-primary-erp" (click)="isModalOpen = true">
+            <mat-icon>post_add</mat-icon> Nueva Noticia
+          </button>
+        </div>
+
+        <div class="erp-modal-overlay" *ngIf="isModalOpen || editandoId">
+          <div class="erp-modal-window">
+            <header class="modal-header">
+              <div class="modal-title-group">
+                <mat-icon class="modal-icon">assignment</mat-icon>
+                <h3>{{ editandoId ? 'Modificar Anuncio' : 'Crear Nuevo Anuncio' }}</h3>
+              </div>
+              <button class="btn-close-icon" (click)="limpiarFormulario()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </header>
+
+            <div class="modal-body">
+              <div class="erp-form-group full-width">
+                <label>Título de la Noticia</label>
+                <input type="text" [(ngModel)]="nuevaNoticia.titulo" placeholder="Ej: Nueva obra en el centro">
+              </div>
+
+              <div class="erp-form-grid">
+                <div class="erp-form-group">
+                  <label><mat-icon class="inline-icon">priority_high</mat-icon> Categoría</label>
+                  <select [(ngModel)]="nuevaNoticia.tipo">
+                    <option value="noticia">Noticia Estándar (Información general)</option>
+                    <option value="importante">Cambio Importante / Alerta (Crítico)</option>
+                  </select>
+                </div>
+
+                <div class="erp-form-group">
+                  <label><mat-icon class="inline-icon">schedule</mat-icon> Duración de Publicación</label>
+                  <div class="composite-duration-input">
+                    <input type="number" value="1" min="1">
+                    <select>
+                      <option value="dias">Días</option>
+                      <option value="semanas">Semanas</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="erp-form-group full-width">
+                <label><mat-icon class="inline-icon">description</mat-icon> Contenido de la Noticia</label>
+                <textarea [(ngModel)]="nuevaNoticia.contenido" rows="4" placeholder="Escriba el contenido completo de la noticia..."></textarea>
+              </div>
+            </div>
+
+            <footer class="modal-footer">
+              <button class="wispro-btn-secundary" (click)="limpiarFormulario()">Cancelar</button>
+              <button class="wispro-btn-primary" (click)="guardarNoticia()" [disabled]="!nuevaNoticia.titulo || !nuevaNoticia.contenido">
+                {{ editandoId ? 'Actualizar en App' : 'Publicar en App' }}
+              </button>
+            </footer>
+          </div>
+        </div>
+
+        <section class="wispro-main-content-card">
+          <div class="wispro-blue-header-table">
+            <div class="section-title-wrapper">
+              <mat-icon class="section-icon">newspaper</mat-icon>
+              <div class="title-desc-stack">
+                <h3>Noticias Publicadas</h3>
+                <p>Noticias actualmente visibles para los usuarios dentro del feed principal.</p>
+              </div>
+            </div>
+            
+            <div class="erp-table-tools">
+              <div class="filter-badge-erp">
+                <mat-icon>filter_list</mat-icon>
+                <select [(ngModel)]="filtroCategoria">
+                  <option value="todos">Todas las categorías</option>
+                  <option value="noticia">Estándar</option>
+                  <option value="importante">Alertas</option>
+                </select>
+              </div>
+              <span class="pines-badge-pill">{{ noticiasFiltradas.length }} Publicadas</span>
+            </div>
+          </div>
+
+          <div class="erp-table-scroll-container">
+            <table class="erp-data-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">N°</th>
+                  <th style="width: 200px;">Título</th>
+                  <th style="width: 140px;">Categoría</th>
+                  <th style="width: 100px;">Duración</th>
+                  <th>Contenido</th>
+                  <th style="width: 140px;">Fecha Creación</th>
+                  <th style="width: 90px; text-align: center;">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let noticia of noticiasFiltradas; let i = index" [class.row-alert-bg]="noticia.tipo === 'importante'">
+                  <td class="font-bold text-muted">{{ i + 1 }}</td>
+                  <td><span class="cell-title-bold">{{ noticia.titulo }}</span></td>
+                  <td>
+                    <span class="erp-chip" [ngClass]="noticia.tipo === 'importante' ? 'chip-alert' : 'chip-standard'">
+                      {{ noticia.tipo === 'importante' ? 'Alerta / Crítico' : 'Estándar' }}
+                    </span>
+                  </td>
+                  <td><span class="text-mono">2 Días</span></td>
+                  <td>
+                    <div class="cell-content-scrollable">
+                      <p class="table-inner-text">{{ noticia.contenido }}</p>
+                    </div>
+                  </td>
+                  <td><span class="text-date">{{ noticia.fecha | date:'short' }}</span></td>
+                  <td>
+                    <div class="cell-actions-wrapper">
+                      <button class="wispro-action-icon-btn btn-edit" title="Editar" (click)="prepararEdicion(noticia)">
+                        <mat-icon>edit_note</mat-icon>
+                      </button>
+                      <button class="wispro-action-icon-btn btn-delete" title="Eliminar" (click)="eliminarNoticia(noticia.id)">
+                        <mat-icon>delete_outline</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="noticiasFiltradas.length === 0">
+                  <td colspan="7">
+                    <div class="erp-empty-state">
+                      <mat-icon class="empty-icon">layers_clear</mat-icon>
+                      <p>No se encontraron avisos bajo la categoría seleccionada.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="wispro-main-content-card">
+          <div class="wispro-blue-header-table">
+            <div class="section-title-wrapper">
+              <mat-icon class="section-icon">history</mat-icon>
+              <div class="title-desc-stack">
+                <h3>Historial de Noticias</h3>
+                <p>Histórico completo de comunicados emitidos que han finalizado su vigencia de muestra.</p>
+              </div>
+            </div>
+
+            <div class="erp-table-tools">
+              <div class="filter-badge-erp">
+                <mat-icon>filter_list</mat-icon>
+                <select [(ngModel)]="filtroHistorial">
+                  <option value="todos">Todas las categorías</option>
+                  <option value="noticia">Estándar</option>
+                  <option value="importante">Alertas</option>
+                </select>
+              </div>
+              <span class="pines-badge-pill">{{ historialFiltrado.length }} Archivadas</span>
+            </div>
+          </div>
+
+          <div class="erp-table-scroll-container">
+            <table class="erp-data-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">N°</th>
+                  <th style="width: 200px;">Título</th>
+                  <th style="width: 140px;">Categoría</th>
+                  <th style="width: 100px;">Duración Orig.</th>
+                  <th>Contenido</th>
+                  <th style="width: 140px;">Fecha Emisión</th>
+                  <th style="width: 90px; text-align: center;">Remover</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let hist of historialFiltrado; let idx = index" class="row-disabled-history">
+                  <td class="text-muted font-bold">{{ idx + 1 }}</td>
+                  <td><span class="cell-title-bold text-muted">{{ hist.titulo }}</span></td>
+                  <td>
+                    <span class="erp-chip chip-disabled">
+                      {{ hist.tipo === 'importante' ? 'Alerta Pasada' : 'Expirada' }}
+                    </span>
+                  </td>
+                  <td><span class="text-mono">1 Semana</span></td>
+                  <td>
+                    <div class="cell-content-scrollable">
+                      <p class="table-inner-text">{{ hist.contenido }}</p>
+                    </div>
+                  </td>
+                  <td><span class="text-date">{{ hist.fecha | date:'short' }}</span></td>
+                  <td>
+                    <div class="cell-actions-wrapper">
+                      <button class="wispro-action-icon-btn btn-delete" title="Eliminar del historial" (click)="eliminarHistorial(hist.id)">
+                        <mat-icon>delete_outline</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="historialFiltrado.length === 0">
+                  <td colspan="7">
+                    <div class="erp-empty-state">
+                      <mat-icon class="empty-icon">folder_off</mat-icon>
+                      <p>Historial vacío o sin coincidencias de filtro.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div> 
+
+      <footer class="wispro-footer-copyright">
+        <span>© 2026 NODESITE — Desarrollado para la gestión del ecosistema ERP de la Municipalidad de Salta.</span>
+      </footer>
+
+    </div> 
+  </div>
+</div>

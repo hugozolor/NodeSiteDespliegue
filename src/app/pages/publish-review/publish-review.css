@@ -1,0 +1,322 @@
+/* ==========================================================================
+   1. VARIABLES Y TEMAS (DARK MODE REHECHO)
+   ========================================================================== */
+:host {
+  /* LIGHT MODE */
+  --primary: #0f172a;       
+  --accent: #2563eb;        
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  
+  --star-off: #94a3b8;      /* Color de trazo más nítido para estado inactivo */
+  --star-on: #d97706;       /* Dorado ámbar corporativo, menos saturado */
+  --input-bg: #f8fafc;
+
+  /* Color Premium personalizado solicitado */
+  --color-title-premium: #232D4F;
+
+  /* Ranking Colors Light */
+  --gold-bg: #fffbeb;
+  --gold-border: #fde68a;
+  --gold-text: #b45309;
+  
+  --silver-bg: #f8fafc;
+  --silver-border: #e2e8f0;
+  --silver-text: #475569;
+  
+  --bronze-bg: #fff7ed;
+  --bronze-border: #fed7aa;
+  --bronze-text: #c2410c;
+
+  display: block;
+}
+
+/* NUEVO DARK MODE - ACCESIBLE Y MODERNO */
+:host-context(.dark-mode), 
+:host-context(body.dark-mode) {
+  --primary: #3b82f6; 
+  --accent: #60a5fa;
+  --bg-page: #121212;      
+  --card-bg: #1e1e1e;      
+  --text-main: #e2e8f0;    
+  --text-muted: #94a3b8;   
+  --border-color: #334155;
+  --star-off: #475569;
+  --star-on: #fbbf24;
+  --input-bg: #2d3748;     
+
+  /* Adaptación del color premium en modo oscuro para legibilidad (contraste accesible) */
+  --color-title-premium: #e2e8f0;
+
+  /* Ranking Colors Dark */
+  --gold-bg: rgba(245, 158, 11, 0.1);
+  --gold-border: rgba(245, 158, 11, 0.3);
+  --gold-text: #fbbf24;
+  
+  --silver-bg: rgba(148, 163, 184, 0.1);
+  --silver-border: rgba(148, 163, 184, 0.2);
+  --silver-text: #cbd5e1;
+  
+  --bronze-bg: rgba(217, 119, 6, 0.1);
+  --bronze-border: rgba(217, 119, 6, 0.3);
+  --bronze-text: #fb923c;
+}
+
+/* ==========================================================================
+   2. ESTRUCTURA GLOBAL
+   ========================================================================== */
+.publish-page {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.content-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ==========================================================================
+   3. BUSCADOR Y ABECEDARIO
+   ========================================================================== */
+.search-section { margin-bottom: 24px; }
+
+.search-bar {
+  background: var(--card-bg);
+  padding: 14px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.icon-svg { width: 20px; height: 20px; color: var(--text-muted); }
+
+.search-bar input {
+  border: none; background: transparent; width: 100%;
+  font-size: 1rem; color: var(--text-main); outline: none;
+}
+.search-bar input::placeholder { color: var(--text-muted); }
+
+.alphabet-scroll {
+  display: flex; gap: 8px; overflow-x: auto; padding: 16px 0 4px;
+  scrollbar-width: none;
+}
+.alphabet-scroll::-webkit-scrollbar { display: none; }
+
+.alphabet-scroll button {
+  min-width: 42px; height: 42px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-main);
+  font-weight: 600; cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.alphabet-scroll button:hover {
+  background: var(--border-color);
+}
+
+.alphabet-scroll button.active {
+  background: var(--primary);
+  color: white; border-color: var(--primary);
+}
+
+.divider {
+  border: 0; height: 1px; background: var(--border-color); margin: 24px 0;
+}
+
+/* ==========================================================================
+   4. SECCIÓN CLASIFICACIÓN (MÉTRICAS PREMIUM)
+   ========================================================================== */
+.ranking-header {
+  margin-bottom: 20px;
+}
+
+.ranking-header .title { 
+  font-size: 1.35rem; 
+  font-weight: 700; 
+  margin: 0; 
+  color: var(--color-title-premium);
+  letter-spacing: -0.02em;
+}
+
+.ranking-container {
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 8px;
+  display: flex; flex-direction: column; gap: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-page);
+}
+.ranking-container::-webkit-scrollbar { width: 6px; }
+.ranking-container::-webkit-scrollbar-track { background: transparent; }
+.ranking-container::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+
+.rank-card {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rank-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: var(--accent);
+}
+
+/* Jerarquía Visual Top 3 */
+.rank-card.gold {
+  background: var(--gold-bg); border-color: var(--gold-border);
+}
+.rank-card.gold .rank-position { color: var(--gold-text); }
+
+.rank-card.silver {
+  background: var(--silver-bg); border-color: var(--silver-border);
+}
+.rank-card.silver .rank-position { color: var(--silver-text); }
+
+.rank-card.bronze {
+  background: var(--bronze-bg); border-color: var(--bronze-border);
+}
+.rank-card.bronze .rank-position { color: var(--bronze-text); }
+
+.rank-position {
+  display: flex; align-items: center;
+  font-weight: 800; font-size: 1rem; color: var(--text-muted);
+  width: 45px;
+}
+
+.rank-info {
+  flex: 1; display: flex; flex-direction: column;
+}
+.rank-name { font-weight: 700; color: var(--text-main); font-size: 1rem; }
+.rank-reviews { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+.rank-score {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--input-bg); padding: 6px 12px; border-radius: 8px;
+  font-weight: 700; color: var(--text-main); border: 1px solid var(--border-color);
+}
+
+/* Estrella Mini del Ranking - Estilo Plano Minimalista */
+.star-mini { 
+  width: 15px; 
+  height: 15px; 
+  color: var(--star-on);
+}
+
+/* ==========================================================================
+   5. TARJETA DE RESEÑA (SELECTORES DE CALIFICACIÓN REFINADOS)
+   ========================================================================== */
+.rating-card {
+  background: var(--card-bg); padding: 24px; border-radius: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+}
+
+.card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px; border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+.location-title {
+  margin: 0; font-size: 1.2rem; color: var(--text-main);
+  display: flex; align-items: center; gap: 8px;
+}
+.icon-pin { width: 20px; height: 20px; color: #ef4444; }
+
+.btn-change {
+  background: transparent; border: none; color: var(--accent);
+  font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: opacity 0.2s;
+}
+.btn-change:hover { opacity: 0.8; }
+
+.stars-picker { text-align: center; margin-bottom: 24px; }
+.label-text { margin-bottom: 14px; font-weight: 500; color: var(--text-muted); letter-spacing: -0.01em; }
+.stars-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+
+/* Componente de Estrella Interactivo con Trazo Fino */
+.star-icon {
+  width: 40px; 
+  height: 40px; 
+  color: var(--star-off);
+  cursor: pointer; 
+  transition: all 0.2s ease-in-out;
+}
+.star-icon.active { 
+  color: var(--star-on); 
+  fill: var(--star-on); 
+}
+.star-icon:hover { 
+  transform: scale(1.1);
+  color: var(--star-on);
+}
+
+.rating-text { font-weight: 700; color: var(--star-on); font-size: 1rem; }
+
+/* ==========================================================================
+   6. FORMULARIO Y RESULTADOS
+   ========================================================================== */
+.comment-box { display: flex; flex-direction: column; gap: 16px; }
+
+.comment-box textarea {
+  width: 100%; min-height: 120px; padding: 16px; border-radius: 12px;
+  border: 1px solid var(--border-color); background: var(--input-bg);
+  color: var(--text-main); font-family: inherit; font-size: 0.95rem;
+  resize: none; outline: none; transition: border-color 0.2s;
+}
+.comment-box textarea::placeholder { color: var(--text-muted); }
+.comment-box textarea:focus { border-color: var(--accent); }
+
+.btn-publish {
+  width: 100%; padding: 16px; border-radius: 12px; border: none;
+  background: var(--primary); color: white;
+  font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.1s;
+}
+.btn-publish:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-publish:active:not(:disabled) { transform: scale(0.98); }
+
+.search-results { display: flex; flex-direction: column; gap: 8px; }
+.result-item {
+  display: flex; justify-content: space-between; align-items: center;
+  width: 100%; padding: 16px;
+  background: var(--card-bg); border: 1px solid var(--border-color);
+  border-radius: 12px; cursor: pointer; text-align: left;
+  transition: all 0.2s; color: var(--text-main);
+}
+.result-item:hover { border-color: var(--accent); background: var(--input-bg); }
+.barrio-name { font-weight: 600; }
+.arrow-icon { width: 18px; height: 18px; color: var(--text-muted); }
+
+/* Animaciones */
+.anim-fade-in { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}

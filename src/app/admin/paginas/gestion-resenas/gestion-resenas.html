@@ -1,0 +1,170 @@
+<div class="global-admin-layout" [class.dark-theme]="layoutService?.isDarkMode()" (click)="cerrarMenus()">
+  
+  <app-menu-lateral></app-menu-lateral>
+
+  <div class="main-workspace">
+    
+    <app-cabecera-admin></app-cabecera-admin>
+
+    <div class="workspace-scroll-viewport">
+      
+      <div class="page-content-padding">
+        
+        <div class="wispro-blue-bar">
+          <div class="breadcrumb-text">
+            Gestión Administrativa / <strong>Reseñas de Usuarios</strong>
+          </div>
+          <div class="kpi-group">
+            <span class="kpi-badge">Total Reseñas: {{ kpiTotal }}</span>
+          </div>
+        </div>
+
+        <div class="erp-toolbar">
+          <div class="search-wrapper">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" [(ngModel)]="filtro" (input)="currentPage = 1" placeholder="Buscar usuario o reseña...">
+          </div>
+          
+          <button class="btn-erp-outline" (click)="panelFiltrosAbierto = !panelFiltrosAbierto; $event.stopPropagation()" [class.active]="panelFiltrosAbierto">
+            <span class="material-symbols-outlined">tune</span> Filtros Avanzados
+          </button>
+        </div>
+
+        <div class="filters-panel" [class.open]="panelFiltrosAbierto" (click)="$event.stopPropagation()">
+          <h3 class="panel-title">Filtros Activos</h3>
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label><span class="material-symbols-outlined">star_rate</span> Cantidad de Estrellas</label>
+              <select class="erp-select" [(ngModel)]="filtroEstrellas" (change)="currentPage = 1">
+                <option value="">Todas las estrellas</option>
+                <option value="5">5 Estrellas (Excelente)</option>
+                <option value="4">4 Estrellas (Bueno)</option>
+                <option value="3">3 Estrellas (Regular)</option>
+                <option value="2">2 Estrellas (Malo)</option>
+                <option value="1">1 Estrella (Pésimo)</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label><span class="material-symbols-outlined">location_on</span> Filtrar por Barrio</label>
+              <input type="text" class="erp-input" [(ngModel)]="filtroBarrio" (input)="currentPage = 1" placeholder="Ej: Centro, Tres Cerritos...">
+            </div>
+          </div>
+        </div>
+
+        <div class="wispro-table-container">
+          <table class="wispro-table">
+            <thead>
+              <tr>
+                <th class="col-estado text-center">Estado</th>
+                <th class="col-usuario sortable" (click)="toggleOrdenUsuario()">
+                  <div class="th-content">
+                    Usuario
+                    <span class="material-symbols-outlined sort-icon" [class.active]="ordenUsuarios">
+                      {{ ordenUsuarios === 'asc' ? 'arrow_upward' : (ordenUsuarios === 'desc' ? 'arrow_downward' : 'swap_vert') }}
+                    </span>
+                  </div>
+                </th>
+                <th class="col-barrio">Barrio</th>
+                <th class="col-rating text-center">Calificación</th>
+                <th class="col-descripcion">Comentario</th>
+                <th class="col-fecha text-center">Fecha</th>
+                <th class="col-hora text-center">Hora</th>
+                <th class="col-acciones text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (resena of paginatedResenas; track resena.id) {
+                <tr>
+                  <td class="col-estado text-center">
+                    <div class="status-wrapper" (click)="$event.stopPropagation()">
+                      <div class="status-box" 
+                          [class.bg-blue]="getEstado(resena.id!) === 'azul'"
+                          [class.bg-yellow]="getEstado(resena.id!) === 'amarillo'"
+                          [class.bg-red]="getEstado(resena.id!) === 'rojo'"
+                          (click)="toggleMenuEstado(resena.id!)"
+                          title="Cambiar Estado">
+                      </div>
+                      
+                      @if (menuEstadoAbierto === resena.id!) {
+                        <div class="status-menu">
+                          <div class="status-option" (click)="cambiarEstado(resena.id!, 'azul')">
+                            <div class="status-box bg-blue"></div> En Orden
+                          </div>
+                          <div class="status-option" (click)="cambiarEstado(resena.id!, 'amarillo')">
+                            <div class="status-box bg-yellow"></div> Alertado
+                          </div>
+                          <div class="status-option" (click)="cambiarEstado(resena.id!, 'rojo')">
+                            <div class="status-box bg-red"></div> Suspender
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </td>
+                  
+                  <td class="col-usuario font-medium">{{ resena.usuarioNombre || 'Anónimo' }}</td>
+                  <td class="col-barrio"><span class="badge-barrio">{{ resena.nombreBarrio || 'No definido' }}</span></td>
+                  
+                  <td class="col-rating text-center">
+                    <div class="rating-stars">
+                      @for (star of [1,2,3,4,5]; track star) {
+                        @if (star <= resena.calificacion) {
+                          <span class="material-symbols-outlined star-icon filled">star</span>
+                        } @else {
+                          <span class="material-symbols-outlined star-icon empty">star</span>
+                        }
+                      }
+                    </div>
+                  </td>
+                  
+                  <td class="col-descripcion">
+                    <div class="description-text" [title]="resena.comentario">{{ resena.comentario }}</div>
+                  </td>
+                  
+                  <td class="col-fecha text-center">{{ resena.fecha | date:'dd/MM/yyyy' }}</td>
+                  <td class="col-hora text-center">{{ resena.fecha | date:'HH:mm' }}</td>
+                  
+                  <td class="col-acciones text-center">
+                    <div class="actions-group">
+                      <button class="wispro-action-icon-btn btn-delete" title="Eliminar Reseña" (click)="eliminarComentario(resena.id!)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                          <line x1="10" y1="11" x2="10" y2="17"></line>
+                          <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="wispro-empty-state-row">
+                    <span class="material-symbols-outlined empty-icon" style="font-size: 32px; margin-bottom: 10px;">manage_search</span>
+                    <p>No se encontraron reseñas con los filtros actuales.</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if (resenasFiltradas.length > 0) {
+          <div class="pagination-wrapper">
+            <div class="pagination-controls">
+              <button class="btn-page" (click)="cambiarPagina(1)" [class.active]="currentPage === 1">1</button>
+              @if (totalPages >= 2) {
+                <button class="btn-page" (click)="cambiarPagina(2)" [class.active]="currentPage === 2">2</button>
+              }
+              <button class="btn-page text-btn" (click)="cambiarPagina(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente</button>
+              <button class="btn-page text-btn" (click)="cambiarPagina(totalPages)" [disabled]="currentPage === totalPages">Último</button>
+            </div>
+            <div class="pagination-info">
+              Mostrando {{ (currentPage - 1) * itemsPerPage + 1 }} a {{ (currentPage * itemsPerPage) > resenasFiltradas.length ? resenasFiltradas.length : (currentPage * itemsPerPage) }} de {{ resenasFiltradas.length }} comentarios
+            </div>
+          </div>
+        }
+
+      </div> <app-admin-footer [isDarkMode]="layoutService?.isDarkMode() || false"></app-admin-footer>
+
+    </div> </div> </div>

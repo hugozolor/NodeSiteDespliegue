@@ -1,0 +1,89 @@
+.cv-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+}
+
+.cv-header {
+  text-align: center;
+  border-bottom: 3px solid #0056b3;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cv-header h1 {
+  font-size: 2.5rem;
+  color: #0056b3;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cv-subtitle {
+  font-size: 1.2rem;
+  color: #666666;
+  margin-top: 0.5rem;
+}
+
+.cv-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.5rem;
+}
+
+.cv-section {
+  margin-bottom: 2rem;
+}
+
+.cv-section h2 {
+  font-size: 1.4rem;
+  color: #0056b3;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.cv-item {
+  margin-bottom: 1.5rem;
+}
+
+.cv-item h3 {
+  font-size: 1.1rem;
+  color: #222222;
+  margin: 0 0 0.25rem 0;
+}
+
+.cv-institution {
+  margin: 0;
+  font-style: italic;
+  color: #555555;
+}
+
+.cv-date {
+  font-size: 0.85rem;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.skills-list {
+  list-style: none;
+  padding: 0;
+}
+
+.skills-list li {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .cv-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

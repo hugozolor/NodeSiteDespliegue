@@ -1,0 +1,124 @@
+<app-header></app-header>
+
+<div class="historial-wrapper fade-in">
+    <div class="main-container">
+        
+        <header class="historial-header">
+            <div class="header-title-row">
+                <h2 class="title-main">Historial</h2>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn" [class.active]="activeTab === 'pines'" (click)="setTab('pines')">
+                    PINES
+                </button>
+                <button class="tab-btn" [class.active]="activeTab === 'resenas'" (click)="setTab('resenas')">
+                    RESEÑAS
+                </button>
+            </div>
+        </header>
+
+        <div class="filters-section" *ngIf="hasContent">
+            <div class="custom-dropdown">
+                <button class="dropdown-trigger" (click)="toggleFilter()">
+                    <span class="filter-label">
+                        <mat-icon>swap_vert</mat-icon>
+                        {{ filtroActivo === 'recientes' ? 'Más recientes primero' : 'Más antiguos primero' }}
+                    </span>
+                    <mat-icon class="dropdown-arrow" [class.rotated]="isFilterOpen">expand_more</mat-icon>
+                </button>
+                
+                <div class="dropdown-menu" [class.open]="isFilterOpen">
+                    <button class="dropdown-item" [class.selected]="filtroActivo === 'recientes'" (click)="seleccionarFiltro('recientes')">
+                        Más recientes primero
+                    </button>
+                    <button class="dropdown-item" [class.selected]="filtroActivo === 'antiguos'" (click)="seleccionarFiltro('antiguos')">
+                        Más antiguos primero
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!hasContent">
+            <div class="empty-icon-container">
+                <mat-icon class="empty-icon">history</mat-icon>
+            </div>
+            <h3>Aún no hay publicaciones registradas.</h3>
+            <p>Cuando realices tu primera publicación, aparecerá aquí.</p>
+        </div>
+
+        <section class="historial-scroll-area" *ngIf="hasContent">
+            
+            <ng-container *ngIf="activeTab === 'pines'">
+                <div class="card premium-card" *ngFor="let pin of pinesHistorial">
+                    <div class="card-top-bar">
+                        <span class="date">{{ pin.fecha | date:'dd/MM/yyyy' }}</span>
+                    </div>
+
+                    <div class="pin-body-layout">
+                        <div class="zone-left">
+                            <div class="icon-wrapper">
+                                <img [src]="pin.iconoPath" alt="Icono Pin" class="custom-svg-icon">
+                            </div>
+                            <span class="pin-type-name">{{ pin.tipo }}</span>
+                        </div>
+
+                        <div class="zone-center">
+                            <p class="description" [class.expanded]="isExpanded(pin.id)">
+                                {{ pin.descripcion }}
+                            </p>
+                            <button class="btn-expand" *ngIf="pin.descripcion.length > 80" (click)="toggleDescription(pin.id)">
+                                {{ isExpanded(pin.id) ? 'Ver menos' : 'Ver más' }}
+                            </button>
+                        </div>
+
+                        <div class="zone-right" *ngIf="pin.imagenes && pin.imagenes.length > 0">
+                            <div class="image-carousel" (scroll)="onCarouselScroll($event, pin.id)">
+                                <img *ngFor="let img of pin.imagenes" [src]="img" alt="Evidencia" loading="lazy" class="carousel-img">
+                            </div>
+                            
+                            <div class="carousel-indicators" *ngIf="pin.imagenes.length > 1">
+                                <span class="dot" 
+                                      *ngFor="let img of pin.imagenes; let idx = index"
+                                      [class.active]="getActivePhotoIndex(pin.id) === idx">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="activeTab === 'resenas'">
+                <div class="card premium-card" *ngFor="let review of resenasHistorial">
+                    <div class="review-header">
+                        <div class="review-left">
+                            <div class="material-icon-wrapper">
+                                <mat-icon class="barrio-mat-icon">{{ review.icono }}</mat-icon>
+                            </div>
+                            <span class="neighborhood-name">{{ review.barrio }}</span>
+                        </div>
+                        <span class="date">{{ review.fecha | date:'dd/MM/yyyy' }}</span>
+                    </div>
+                    
+                    <div class="review-body">
+                        <p class="description" style="-webkit-line-clamp: unset;">
+                            {{ review.descripcion }}
+                        </p>
+                    </div>
+
+                    <div class="review-footer">
+                        <div class="stars-container">
+                            <mat-icon *ngFor="let star of getArrayEstrellas(review.calificacion)" 
+                                    class="star-icon" [class.filled]="star === 1">
+                                star
+                            </mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+        </section>
+    </div>
+</div>
+
+<app-nav-bottom></app-nav-bottom>

@@ -1,0 +1,77 @@
+<app-header></app-header>
+
+<div class="notifications-page">
+  <div class="top-nav">
+    <button class="back-btn" (click)="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      <span>Volver</span>
+    </button>
+  </div>
+
+  <div class="content-area" style="flex: 1; display: flex; flex-direction: column; position: relative; overflow: hidden;">
+    
+    @if (sessionService.isGuest()) {
+      <app-guest-block></app-guest-block>
+    }
+
+    <div class="filter-header" [style.filter]="sessionService.isGuest() ? 'blur(5px)' : 'none'">
+      <button mat-icon-button [matMenuTriggerFor]="filterMenu" class="filter-btn">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      
+      <mat-menu #filterMenu="matMenu">
+        <button mat-menu-item (click)="setFilter(null)">TODAS</button>
+        <button mat-menu-item (click)="setFilter('INFO')">INFO</button>
+        <button mat-menu-item (click)="setFilter('SUCCESS')">SUCCESS</button>
+        <button mat-menu-item (click)="setFilter('WARNING')">WARNING</button>
+        <button mat-menu-item (click)="setFilter('BAN')">BAN</button>
+      </mat-menu>
+
+      <h2 class="dynamic-title">
+        {{ selectedFilter ? 'NOTIFICACION / ' + selectedFilter : 'NOTIFICACIONES' }}
+      </h2>
+    </div>
+
+    <div class="notifications-scroll-container">
+      @if ((filteredNotifications$ | async); as filtered) {
+        @if (filtered.length === 0) {
+          
+          <div class="empty-state-container" [style.filter]="sessionService.isGuest() ? 'blur(5px)' : 'none'">
+            <mat-icon class="empty-icon">notifications_none</mat-icon>
+            <p class="empty-text">ESTE ES EL CANAL DE COMUNICACION OFICIAL DE NODESITE. AUN NO HAS RECIBIDO NINGUN MENSAJE.</p>
+          </div>
+          
+        } @else {
+          
+          <div class="notification-list" [style.filter]="sessionService.isGuest() ? 'blur(5px)' : 'none'">
+            @for (item of filtered; track item.id) {
+              <div class="notification-card">
+                
+                <div class="card-header">
+                  <span class="badge" [ngClass]="item.type ? item.type.toUpperCase() : 'INFO'">
+                    {{ item.type ? item.type.toUpperCase() : 'INFO' }}
+                  </span>
+                </div>
+                
+                <div class="card-body">
+                  <h3 class="card-title">{{ item.title }}</h3>
+                  <p class="card-desc">{{ item.description }}</p>
+                </div>
+                
+                <div class="card-footer">
+                  <span class="date-time">
+                    {{ item.date || item.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                  </span>
+                </div>
+
+              </div>
+            }
+          </div>
+          
+        }
+      }
+    </div>
+  </div>
+</div>

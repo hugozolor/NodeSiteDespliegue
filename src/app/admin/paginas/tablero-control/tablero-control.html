@@ -1,0 +1,44 @@
+<div class="admin-container">
+  <app-menu-lateral class="sidebar"></app-menu-lateral>
+
+  <div class="main-content">
+    <app-cabecera-admin></app-cabecera-admin>
+
+    <section class="dashboard-body">
+      <header class="welcome-header">
+        <h2>Panel General</h2>
+        <p>Resumen de actividad en tiempo real</p>
+      </header>
+
+      <div class="stats-grid">
+        
+          <div class="stat-card blue-card">
+            <div class="card-info">
+              <h3>Obras Activas</h3>
+              <p class="number">{{ cantidadObras }}</p> 
+              <span class="trend">↑ Actualizado</span>
+            </div>
+            <div class="card-action">
+              <button class="btn-card" routerLink="/admin/gestion-mapa">
+                + Nuevas Obras
+              </button>
+            </div>
+          </div>
+
+          <div class="stat-card red-card">
+            <div class="card-info">
+              <h3>Advertencias Pendientes</h3>
+              <p class="number">{{ cantidadAdvertencias }}</p> 
+              <span class="trend">Usuarios moderados</span>
+            </div>
+            <div class="card-action">
+              <button class="btn-card outline" routerLink="/admin/advertencias">
+                Gestionar Advertencias
+              </button>
+            </div>
+          </div>
+
+      </div>
+    </section>
+  </div>
+</div>

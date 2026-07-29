@@ -1,0 +1,299 @@
+/* --- 1. CONFIGURACIÓN GENERAL --- */
+.dashboard-content {
+  padding: 20px;
+  max-width: 900px; 
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* --- 2. SECCIÓN DE BIENVENIDA --- */
+.welcome-section {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.welcome-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #2e448f;
+  margin-bottom: 8px;
+}
+
+.discover-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* --- CARRUSEL (CORREGIDO PARA TEXTO LARGO) --- */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: auto; 
+  min-height: 170px; 
+  overflow: hidden;
+  border-radius: 16px;
+  background: #f8fafc;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  display: flex; 
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  align-items: stretch;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 25px 50px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-card {
+  text-align: center;
+  max-width: 85%;
+  word-wrap: break-word; 
+}
+
+.slide-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.slide-card.noticia .slide-badge { background: #dbeafe; color: #2563eb; }
+.slide-card.importante .slide-badge { background: #fee2e2; color: #dc2626; }
+
+.noticia-titulo {
+  margin: 0 0 8px 0;
+  color: #1e293b;
+  font-size: 1.2rem;
+}
+
+.noticia-desc {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  white-space: normal; 
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #334155;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-control.prev { left: 10px; }
+.carousel-control.next { right: 10px; }
+
+/* ============================================================
+   --- 3. RECTÁNGULOS DE OPCIONES (NUEVO DISEÑO DE TARJETAS) ---
+   ============================================================ */
+
+.options-container {
+  display: grid;
+  /* Por defecto: 3 columnas iguales para escritorio */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Espacio entre tarjetas */
+  margin-top: 30px;
+}
+
+/* Estilo Base de la Tarjeta (Anses-card) */
+.anses-card {
+  /* Variables de color adaptativas (asumiendo que usas clases .dark-mode en el body) */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-shadow: rgba(0, 0, 0, 0.03);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --icon-color: #2e448f; /* Tu azul institucional */
+
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px; /* Bordes más redondeados y profesionales */
+  
+  /* CAMBIO CLAVE: Diseño flex vertical y centrado */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  padding: 30px 20px; /* Más padding para agrandar el marco blanco */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--card-shadow);
+  
+  /* Asegura que todas las tarjetas tengan la misma altura */
+  height: 100%; 
+  min-height: 220px; /* Altura mínima para que se vean verticales */
+  box-sizing: border-box;
+}
+
+/* --- ESTILOS PARA MODO OSCURO (Ajustar según cómo actives el dark mode) --- */
+/* Si usas una clase en el body, por ejemplo: body.dark-mode .anses-card */
+:host-context(.dark-mode) .anses-card, /* Para componentes Standalone */
+body.dark-mode .anses-card {
+  --card-bg: #1e293b; /* Fondo oscuro */
+  --card-border: #334155; /* Borde oscuro */
+  --card-shadow: rgba(0,0,0,0.2);
+  --text-primary: #f1f5f9; /* Texto claro */
+  --text-secondary: #94a3b8; /* Texto secundario claro */
+  --icon-color: #60a5fa; /* Un azul más claro para que resalte en oscuro */
+}
+
+/* Hover effect profesional */
+.anses-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+  border-color: #0072bb; /* Azul al hacer hover */
+}
+
+/* Contenedor del Icono (Card-icon-box) */
+.card-icon-box {
+  /* CAMBIO: Eliminamos fondo gris, solo centramos el icono */
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px; /* Espacio abajo del icono */
+  flex-shrink: 0;
+}
+
+/* Estilo del Icono (Custom-icon) */
+.custom-icon {
+  /* CAMBIO: Icono más grande (48px es un buen tamaño profesional) */
+  font-size: 48px !important; 
+  width: 48px;
+  height: 48px;
+  color: var(--icon-color); /* Usamos la variable adaptativa */
+  
+  /* Configuración de Material Symbols para trazo fino */
+  font-variation-settings: 'wght' 300, 'opsz' 48;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contenedor de Texto (Card-info) */
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título de la sección (h3) */
+.card-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem; /* Un poco más grande */
+  color: var(--text-primary); /* Variable adaptativa */
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Descripción de la sección (p) */
+.card-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary); /* Variable adaptativa */
+  line-height: 1.4;
+  max-width: 90%; /* Evita que el texto toque los bordes */
+}
+
+/* Asegurar que el arrow esté oculto */
+.card-arrow {
+  display: none;
+}
+
+/* ============================================================
+   --- RESPONSIVE ADJUSTMENTS (ADAPTACIÓN A MÓVILES) ---
+   ============================================================ */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 900px) {
+  .options-container {
+    gap: 16px;
+  }
+  .anses-card {
+    padding: 25px 15px;
+    min-height: 200px;
+  }
+  .custom-icon {
+    font-size: 42px !important;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Móviles (NUEVO DISEÑO 2 COLUMNAS VERTICALES) */
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding: 15px;
+  }
+
+  .options-container {
+    /* CAMBIO CLAVE: Fuerza 2 columnas en móvil (2x3) */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+
+  .welcome-title { font-size: 1.5rem; }
+  .carousel-container { min-height: 150px; height: auto; }
+  .anses-card {
+    /* Padding reducido para que entre en pantallas pequeñas */
+    padding: 20px 10px; 
+    
+    /* CAMBIO: Mantiene la altura para que se vea rectangular vertical */
+    min-height: 190px; 
+    border-radius: 12px;
+  }
+
+  .card-icon-box {
+    margin-bottom: 12px;
+  }
+
+  .custom-icon {
+    /* Icono un poco más pequeño en móvil pero aún grande */
+    font-size: 36px !important; 
+    width: 36px;
+    height: 36px;
+  }
+
+  .card-info h3 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .card-info p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+}

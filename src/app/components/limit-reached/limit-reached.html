@@ -1,0 +1,23 @@
+<div class="limit-container anim-fade-in">
+  <div class="limit-card">
+    
+    <div class="icon-header">
+      <div class="clock-animation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line class="hour-hand" x1="12" y1="12" x2="12" y2="7"></line>
+          <line class="minute-hand" x1="12" y1="12" x2="16" y2="12"></line>
+        </svg>
+      </div>
+    </div>
+    
+    <h2>¡Límite mensual alcanzado!</h2>
+    <p>Has alcanzado tus <b>5 publicaciones</b> de este mes. Debido a que el cupo mensual es limitado, promovemos el uso responsable de la plataforma. Te invitamos a que cada reporte o reseña sea gestionado de forma seria, precisa y profesional para garantizar un impacto real y eficaz en nuestra comunidad.</p>
+
+    <div class="info-box">
+      <p>Tus chances se restaurarán el 1 de <b>{{ proximoMes }}</b>.</p>
+    </div>
+
+    <button class="btn-understand" (click)="irAlMenu()">Entendido, volver</button>
+  </div>
+</div>

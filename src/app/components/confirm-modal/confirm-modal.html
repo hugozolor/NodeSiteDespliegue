@@ -1,0 +1,24 @@
+<div class="modal-overlay" (click)="cancelar()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    
+    <div class="icon-header">
+      <div class="icon-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-2d">
+          <path d="M12 2L4 5V11C4 16.5 7.6 21.6 12 23C16.4 21.6 20 16.5 20 11V5L12 2ZM12 15L8 11L9.4 9.6L12 12.2L14.6 9.6L16 11L12 15Z" />
+        </svg>
+      </div>
+    </div>
+    
+    <h3>Aviso de Identidad</h3>
+    
+    <div class="warning-body">
+      <p>Nodesite informa que el autor de esta reseña es identificado por el sistema.</p>
+      <p>Publicar información falsa sobre <strong>{{ barrio }}</strong> o lenguaje ofensivo puede resultar en sanciones legales y suspensión de cuenta.</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-confirm" (click)="confirmar()">Aceptar y Publicar</button>
+      <button class="btn-edit" (click)="cancelar()">Revisar Mensaje</button>
+    </div>
+  </div>
+</div>

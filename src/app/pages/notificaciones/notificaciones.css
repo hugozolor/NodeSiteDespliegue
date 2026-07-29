@@ -1,0 +1,286 @@
+/* ==========================================================================
+   ESTILOS COMPLETOS: PANTALLA DE NOTIFICACIONES (notificaciones.css)
+   ========================================================================== */
+
+/* --- 1. CONTENEDOR PRINCIPAL Y ALTURA --- */
+.notifications-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 65px); /* Ajustado a la altura de tu header */
+  background-color: var(--bg-color, #f8fafc); /* Fondo claro moderno */
+  color: var(--text-color, #1e293b);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* MODO OSCURO: Fondo general */
+:host-context(.dark-mode) .notifications-page {
+  background-color: #0f172a !important; /* Azul oscuro profundo (Slate 900) */
+}
+
+/* --- 2. BARRA DE NAVEGACIÓN SUPERIOR (Botón Volver) --- */
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: var(--card-bg, #ffffff);
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+:host-context(.dark-mode) .top-nav {
+  background-color: #1e293b;
+  border-bottom-color: #334155;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #005fa3; /* Sincronizado con tu --primary-blue */
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #232D4F;
+}
+
+:host-context(.dark-mode) .back-btn {
+  color: #38bdf8; /* Celeste brillante para modo oscuro */
+}
+:host-context(.dark-mode) .back-btn:hover {
+  color: #ffffff;
+}
+
+/* --- 3. ÁREA DE CONTENIDO (Layout Seguro) --- */
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Crucial para el posicionamiento del componente de bloqueo */
+  overflow: hidden;    /* Evita desbordamientos extraños */
+}
+
+/* --- 4. CABECERA DE FILTROS Y TÍTULO DINÁMICO --- */
+.filter-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  transition: filter 0.3s ease;
+}
+
+.filter-btn {
+  color: #005fa3;
+}
+
+:host-context(.dark-mode) .filter-btn {
+  color: #38bdf8;
+}
+
+.dynamic-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #232D4F; /* --dark-blue original */
+  margin: 0;
+  padding-right: 40px; /* Compensa el ancho del botón para centrar perfecto */
+  letter-spacing: 0.5px;
+}
+
+:host-context(.dark-mode) .dynamic-title {
+  color: #ffffff;
+}
+
+/* --- 5. 🔄 CONTENEDOR CON SCROLL PARA LAS TARJETAS --- */
+/* Esta regla garantiza que si llegan muchas notificaciones, la página no se rompa */
+/* y aparezca una barra de scroll vertical contenida en este recuadro */
+.notifications-scroll-container {
+  flex: 1;
+  overflow-y: auto; /* Activa el scroll vertical dinámico */
+  padding: 0 15px 30px 15px;
+}
+
+/* Personalización elegante de la barra de scroll (Opcional - Webkit) */
+.notifications-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+.notifications-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.notifications-scroll-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+:host-context(.dark-mode) .notifications-scroll-container::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* --- 6. LISTA Y RECTÁNGULOS DE NOTIFICACIÓN --- */
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 620px; /* Ancho premium adaptado para lectura limpia */
+  margin: 0 auto;
+  box-sizing: border-box; /* Previene ensanchamiento por paddings */
+}
+
+.notification-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.02);
+  width: 100%;
+  box-sizing: border-box; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px -3px rgba(15, 23, 42, 0.08);
+}
+
+/* MODO OSCURO: Tarjeta */
+:host-context(.dark-mode) .notification-card {
+  background-color: #1e293b !important; /* Slate 800 */
+  border-color: #334155 !important;      /* Slate 700 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* --- 7. BADGES / TIPOS DE ALERTAS --- */
+.card-header {
+  display: flex;
+  justify-content: flex-end; /* Alineado a la derecha superior */
+  align-items: center;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Variaciones de Color (Modo Claro) */
+.INFO { background-color: #e0f2fe; color: #0369a1; }
+.SUCCESS { background-color: #dcfce7; color: #15803d; }
+.WARNING { background-color: #fef3c7; color: #b45309; }
+.BAN { background-color: #fee2e2; color: #b91c1c; }
+
+/* Variaciones de Color (Modo Oscuro) */
+:host-context(.dark-mode) .INFO { background-color: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+:host-context(.dark-mode) .SUCCESS { background-color: rgba(74, 222, 128, 0.15); color: #4ade80; }
+:host-context(.dark-mode) .WARNING { background-color: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+:host-context(.dark-mode) .BAN { background-color: rgba(248, 113, 113, 0.15); color: #f87171; }
+
+/* --- 8. 📦 JERARQUÍA INTERNA: TÍTULO ARRIBA, DESCRIPCIÓN ABAJO --- */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Separación balanceada entre el título y el cuerpo de texto */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Título (Siempre Primero) */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b; /* Gris pizarra oscuro elegante */
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;     /* Evita roturas visuales por palabras/URLs gigantes */
+  overflow-wrap: break-word;   /* Garantiza el acople perfecto al contenedor */
+}
+
+:host-context(.dark-mode) .card-title {
+  color: #ffffff !important;
+}
+
+/* Descripción (Siempre Abajo) */
+.card-desc {
+  font-size: 0.95rem;
+  color: #475569; /* Gris intermedio de alta lectura */
+  margin: 0;
+  line-height: 1.55;
+  white-space: pre-wrap;       /* Mantiene saltos de línea (\n) del panel de administración */
+  word-break: break-word;     /* Empaqueta el texto dentro de los márgenes horizontalmente */
+  overflow-wrap: break-word;   /* Bloquea por completo cualquier posibilidad de desborde */
+}
+
+:host-context(.dark-mode) .card-desc {
+  color: #cbd5e1 !important; /* Texto claro y suave para que no canse la vista */
+}
+
+/* --- 9. PIE DE TARJETA (Fecha) --- */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 8px;
+}
+
+:host-context(.dark-mode) .card-footer {
+  border-top-color: #334155;
+}
+
+.date-time {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+:host-context(.dark-mode) .date-time {
+  color: #64748b;
+}
+
+/* --- 10. ESTADO VACÍO (Empty State) --- */
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 350px;
+  padding: 20px;
+  text-align: center;
+  transition: filter 0.3s ease;
+}
+
+.empty-icon {
+  font-size: 56px;
+  width: 56px;
+  height: 56px;
+  color: #005fa3;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+:host-context(.dark-mode) .empty-icon {
+  color: #38bdf8;
+  opacity: 0.8;
+}
+
+.empty-text {
+  font-size: 0.92rem;
+  color: #64748b;
+  max-width: 360px;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+:host-context(.dark-mode) .empty-text {
+  color: #94a3b8;
+}

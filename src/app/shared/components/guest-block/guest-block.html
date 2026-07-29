@@ -1,0 +1,52 @@
+<div class="guest-overlay fade-in">
+  <div class="lock-card">
+    
+    <button class="btn-close-internal" (click)="onClose()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="icon-container">
+      <svg class="lock-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+    
+    <h2>Función exclusiva para usuarios</h2>
+    <p>Estás navegando como invitado. Para acceder a estas herramientas, necesitás una cuenta.</p>
+    
+    <div class="benefits-box">
+      <p class="benefit-title">Beneficios de tu cuenta:</p>
+      <ul class="benefit-list">
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Publicar reseñas en barrios
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Reportar problemas en el mapa
+        </li>
+        <li>
+          <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Consultar con Chat-bot IA
+        </li>
+      </ul>
+    </div>
+
+    <button class="btn-register" (click)="goToRegister()">
+      Crear cuenta gratis
+    </button>
+
+    <div class="login-footer">
+      <span>¿Ya tenés cuenta?</span>
+      <button class="btn-login-link" (click)="goToLogin()">Iniciá sesión</button>
+    </div>
+
+    <button class="btn-text-back" (click)="goBackToMenu()">
+      Volver al menú principal
+    </button>
+  </div>
+</div>
